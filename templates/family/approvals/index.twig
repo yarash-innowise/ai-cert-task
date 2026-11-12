@@ -1,0 +1,28 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Approvals</h1>
+  <p>Your children's purchases, RSVPs and cancellations wait here for your answer. If you do not answer within 48 hours, the request is denied automatically.</p>
+  {% if items is empty %}
+    <p>There are no requests.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Requests of your children</caption>
+        <thead><tr><th scope="col">Child</th><th scope="col">What</th><th scope="col">Event</th><th scope="col">Amount</th><th scope="col">Asked</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          {% for item in items %}
+            {% set r = item.request %}
+            <tr>
+              <th scope="row"><a href="/family/approvals/{{ r.id }}">{{ item.childName }}</a></th>
+              <td>{{ r.kind.label|capitalize }}</td>
+              <td>{{ r.eventLabel }}</td>
+              <td>{{ r.amountLabel ?? '-' }}</td>
+              <td>{{ r.createdAt|date('Y-m-d H:i', 'UTC') }} UTC</td>
+              <td><span class="badge">{{ r.status.parentLabel }}</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

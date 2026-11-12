@@ -1,0 +1,65 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Assign a Coach</h1>
+  <p>Events are managed elsewhere: enter the event reference with its date and time (in your organization's time zone).</p>
+  {{ f.error_summary(errors) }}
+  {% if warning %}
+    <section class="card" aria-labelledby="warning-title" role="alert">
+      <h2 id="warning-title">Schedule conflict</h2>
+      <p>{{ warning }}</p>
+      <form method="post" action="/trainer/assignments" novalidate>
+        {{ csrf_field() }}
+        {% for name in ['event_ref', 'event_date', 'starts_at', 'ends_at', 'coach_user_id'] %}
+          <input type="hidden" name="{{ name }}" value="{{ old[name]|default('') }}">
+        {% endfor %}
+        <input type="hidden" name="continue_anyway" value="1">
+        {{ f.field('reason', 'Reason for assigning anyway', old.reason|default(''), reason_error, 'text', 'Required. The Coach and your audit log will show it.', true) }}
+        <button class="button" type="submit">Continue anyway</button>
+        <a class="button button--secondary" href="/trainer/assignments">Cancel</a>
+      </form>
+    </section>
+  {% else %}
+    {% if coaches is empty %}
+      <p>You have no Coaches yet. <a href="/trainer/coaches">Invite one</a>.</p>
+    {% else %}
+      <form method="post" action="/trainer/assignments" novalidate>
+        {{ csrf_field() }}
+        {{ f.field('event_ref', 'Event reference', old.event_ref|default(''), errors.event_ref|default(null), 'text', null, true) }}
+        {{ f.field('event_date', 'Event date', old.event_date|default(''), errors.event_date|default(null), 'date', null, true) }}
+        {{ f.field('starts_at', 'Starts at', old.starts_at|default(''), errors.starts_at|default(null), 'time', null, true) }}
+        {{ f.field('ends_at', 'Ends at', old.ends_at|default(''), errors.ends_at|default(null), 'time', null, true) }}
+        <div class="field{% if errors.coach is defined or errors.coach_user_id is defined %} field--error{% endif %}">
+          <label for="field-coach_user_id">Coach</label>
+          {% if errors.coach is defined %}<p class="field__error">{{ errors.coach }}</p>{% endif %}
+          {% if errors.coach_user_id is defined %}<p class="field__error">{{ errors.coach_user_id }}</p>{% endif %}
+          <select class="input" id="field-coach_user_id" name="coach_user_id">
+            {% for c in coaches|filter(x => not x.inactive) %}<option value="{{ c.userId }}"{% if old.coach_user_id|default('') == c.userId %} selected{% endif %}>{{ c.name }}</option>{% endfor %}
+          </select>
+        </div>
+        <button class="button" type="submit">Assign Coach</button>
+      </form>
+    {% endif %}
+  {% endif %}
+  <h2>Assignments</h2>
+  {% if assignments is empty %}
+    <p>No assignments yet.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Coach assignments</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">When</th><th scope="col">Coach</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          {% for a in assignments %}
+            <tr>
+              <th scope="row">{{ a.eventRef }}</th>
+              <td>{{ a.when }}</td>
+              <td><a href="/trainer/coaches/{{ a.coachUserId }}/schedule">{{ a.coachName }}</a></td>
+              <td>{{ a.status.label }}{% if a.isOverride %} <span class="badge">Overridden</span>{% endif %}{% if a.changeNote %}<br><span class="caption">{{ a.changeNote }}</span>{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

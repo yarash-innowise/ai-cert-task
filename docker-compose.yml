@@ -1,0 +1,89 @@
+x-app: &app
+  build:
+    context: .
+    dockerfile: docker/app/Dockerfile
+  volumes:
+    - .:/app
+  environment: &app-env
+    APP_ENV: ${APP_ENV:-development}
+    DB_HOST: db
+    DB_PORT: "5432"
+    # The web app and the worker run as the restricted role (AC-87); the owner is for migrations only.
+    DB_USER: app_rw
+    DB_PASSWORD: ${APP_RW_PASSWORD:-app_rw_dev_password}
+    DB_OWNER_USER: ${DB_USER:-app}
+    DB_OWNER_PASSWORD: ${DB_PASSWORD:-app_dev_password}
+    DB_NAME: ${DB_NAME:-app}
+    DB_NAME_TEST: ${DB_NAME_TEST:-app_test}
+    APP_RW_PASSWORD: ${APP_RW_PASSWORD:-app_rw_dev_password}
+    MAILER_DSN: smtp://mailpit:1025
+  depends_on:
+    db:
+      condition: service_healthy
+
+services:
+  app:
+    <<: *app
+    ports:
+      - "${APP_HTTP_PORT:-18080}:80"
+      - "${APP_HTTPS_PORT:-18443}:443"
+    environment:
+      <<: *app-env
+      SERVER_NAME: localhost
+
+  worker:
+    <<: *app
+    command: php bin/console worker
+    restart: unless-stopped
+
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: ${DB_USER:-app}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-app_dev_password}
+      POSTGRES_DB: ${DB_NAME:-app}
+    volumes:
+      - db-data:/var/lib/postgresql
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Browser accessibility walk (task 43, AC-89): only with `--profile a11y`; nothing is installed on the host.
+  a11y:
+    profiles: ["a11y"]
+    image: mcr.microsoft.com/playwright:v1.64.1-noble
+    working_dir: /work
+    volumes:
+      - ./scripts/a11y:/work:ro
+    environment:
+      A11Y_ADMIN_EMAIL: ${A11Y_ADMIN_EMAIL:-}
+      A11Y_ADMIN_PASSWORD: ${A11Y_ADMIN_PASSWORD:-}
+      NODE_PATH: /tmp/pw/node_modules
+    depends_on:
+      - app
+    command: ["sh", "-c", "mkdir -p /tmp/pw && cd /tmp/pw && npm i --silent --no-audit --no-fund playwright-core@1.64.1 && cd /work && node walk.cjs"]
+
+  # Load generator (task 44, AC-88): only with `--profile load`, see scripts/load/loadtest.sh.
+  load:
+    profiles: ["load"]
+    image: mcr.microsoft.com/playwright:v1.64.1-noble
+    working_dir: /work
+    volumes:
+      - ./scripts/load:/work:ro
+    ulimits:
+      nofile: 65536
+    depends_on:
+      - app
+    command: ["node", "load.cjs"]
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    ports:
+      - "${MAILPIT_UI_PORT:-8125}:8025"
+      - "${MAILPIT_SMTP_PORT:-1125}:1025"
+
+volumes:
+  db-data:

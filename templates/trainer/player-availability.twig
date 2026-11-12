@@ -1,0 +1,28 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Availability of {{ card.player.name }}</h1>
+  <p>Advisory only: it never blocks scheduling.</p>
+  {% if not card.hasPreference %}
+    <p>No preference given.</p>
+  {% else %}
+    <h2>Best Times</h2>
+    <ul>{% for b in card.bestTimes %}<li>{{ b.label }}</li>{% endfor %}</ul>
+    <table class="table">
+      <caption class="visually-hidden">Weekly availability</caption>
+      <thead><tr><th scope="col">Day</th><th scope="col">Availability</th></tr></thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            <th scope="row">{{ row.day.label }}</th>
+            <td>
+              {% if row.status == 'unavailable' %}Not Available
+              {% elseif row.status == 'available' %}{% for s in row.slots|filter(x => x.start != '') %}{{ s.start }}-{{ s.end }}{% if not loop.last %}, {% endif %}{% endfor %}
+              {% else %}No preference{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <p><a href="/trainer/availability">Back to player availability</a></p>
+{% endblock %}

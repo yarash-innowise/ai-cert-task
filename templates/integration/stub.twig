@@ -1,0 +1,8 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  {% set menu = context_menu() %}
+  {% if menu.current %}<p class="caption">Showing: {{ menu.current.label }}</p>{% endif %}
+  <p>{{ message }}</p>
+  {% if balance is defined %}<p>Balance: <strong>{{ balance }}</strong> tokens</p>{% endif %}
+{% endblock %}

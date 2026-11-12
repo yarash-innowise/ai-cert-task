@@ -1,0 +1,6 @@
+{# Shows a refusal that is about the whole action (self, last Super Admin ...), not one field. #}
+{% if form_error %}
+  <div class="error-summary" id="error-summary" role="alert" tabindex="-1">
+    <p class="error-summary__title">{{ form_error }}</p>
+  </div>
+{% endif %}

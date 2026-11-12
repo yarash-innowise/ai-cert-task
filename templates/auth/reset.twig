@@ -1,0 +1,18 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  {% if invalid %}
+    <h1>This link is not valid</h1>
+    <p>The link has expired or has already been used. Reset links work once and expire 1 hour after they are sent.</p>
+    <p><a class="button" href="/forgot-password">Request a new link</a></p>
+  {% else %}
+    <h1>Choose a new password</h1>
+    {{ f.error_summary(errors) }}
+    <form method="post" action="/reset-password/{{ token|url_encode }}" novalidate>
+      {{ csrf_field() }}
+      {{ f.field('password', 'New password', '', errors.password|default(null), 'password', '10 to 128 characters.', true, 'new-password') }}
+      {{ f.field('password_confirmation', 'Repeat the new password', '', errors.password_confirmation|default(null), 'password', null, true, 'new-password') }}
+      <button class="button" type="submit">Change password</button>
+    </form>
+  {% endif %}
+{% endblock %}

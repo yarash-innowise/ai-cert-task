@@ -1,0 +1,24 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Schedule of {{ coach.name }}</h1>
+  {% if not has_entries %}
+    <p>{{ coach.name }} has not set a schedule yet, so assigning them never raises a schedule warning.</p>
+  {% else %}
+    <table class="table">
+      <caption class="visually-hidden">Weekly schedule</caption>
+      <thead><tr><th scope="col">Day</th><th scope="col">Times</th></tr></thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            <th scope="row">{{ row.day.label }}</th>
+            <td>
+              {% if row.status == 'available' %}{% for s in row.slots|filter(x => x.start != '') %}{{ s.start }}-{{ s.end }}{% if not loop.last %}, {% endif %}{% endfor %}
+              {% else %}Not available{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <p><a href="/trainer/coaches/{{ coach.userId }}">Back to {{ coach.name }}</a></p>
+{% endblock %}

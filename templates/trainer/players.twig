@@ -1,0 +1,26 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Players</h1>
+  <p>Everyone who currently trains with you, including children registered by their parents.</p>
+  {% if players is empty %}
+    <p>No players yet. Share your <a href="/trainer/links">player link</a> to get started.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Players of your organization</caption>
+        <thead><tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Age</th><th scope="col">Account holder</th><th scope="col">With you since</th></tr></thead>
+        <tbody>
+          {% for p in players %}
+            <tr>
+              <th scope="row"><a href="/trainer/players/{{ p.profileId }}">{{ p.name }}</a>{% if p.inactive %} <span class="badge badge--inactive">Inactive</span>{% endif %}</th>
+              <td>{{ p.isChild ? 'Child' : 'Adult' }}</td>
+              <td>{{ p.age is null ? 'Unknown' : p.age }}</td>
+              <td>{{ p.accountHolderName }}</td>
+              <td>{{ p.associatedSince|date('Y-m-d') }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

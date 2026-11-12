@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "OutboxWorker claims rows as processing with locked_until lease in a short committed transaction, then runs each handler with no open transaction; handlers needing atomicity open their own TransactionManager run and must be idempotent by outbox id. Email payloads are scrubbed after send.\n\n## Sources\n- src/Shared/Infrastructure/Outbox/OutboxWorker.php",
+  "created_at": "2026-11-12T22:15:34.607898+00:00",
+  "destination_memory_id": "MEM-20261112-ca323135",
+  "destination_revision": 1,
+  "id": "f42b5722-fdc6-4aa6-a478-f717be3f2409",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:15:34.613845+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "ca323135-ca7a-4d5b-b2ac-7df19c16506a",
+      "path": "project-brain/dynamic/decisions/ca323135-ca7a-4d5b-b2ac-7df19c16506a.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Outbox worker uses leased per-row claiming",
+  "updated_at": "2026-11-12T22:15:34.644541+00:00"
+}

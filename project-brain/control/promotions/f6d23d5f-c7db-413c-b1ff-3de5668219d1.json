@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "New async jobs add a [topic, serviceId] pair to the job.handlers DI list (DI\\add) in their module config/container.d file; JobOutboxHandler dispatches by topic.\n\n## Sources\n- config/container.php",
+  "created_at": "2026-11-12T12:41:39.551287+00:00",
+  "destination_memory_id": "MEM-20261112-86faf4df",
+  "destination_revision": 1,
+  "id": "f6d23d5f-c7db-413c-b1ff-3de5668219d1",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T12:41:39.554182+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "86faf4df-2603-43c1-aa7e-4980e525c63e",
+      "path": "project-brain/dynamic/decisions/86faf4df-2603-43c1-aa7e-4980e525c63e.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Outbox job topics register through job.handlers",
+  "updated_at": "2026-11-12T12:41:39.573855+00:00"
+}

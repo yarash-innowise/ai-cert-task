@@ -1,0 +1,38 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Impersonation history</h1>
+  <p><a href="/admin/users">Back to users</a></p>
+  <p class="caption" role="status">{{ page.total }} impersonation{{ page.total == 1 ? '' : 's' }}. Page {{ page.page }} of {{ page.lastPage }}.</p>
+  {% if page.items is empty %}
+    <p>No impersonation has been started yet.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Impersonation history</caption>
+        <thead>
+          <tr><th scope="col">Admin</th><th scope="col">Impersonated user</th><th scope="col">Started</th><th scope="col">Ended</th><th scope="col">Duration</th><th scope="col">How it ended</th><th scope="col">Actions logged</th></tr>
+        </thead>
+        <tbody>
+          {% for row in page.items %}
+            <tr>
+              <th scope="row">{{ row.adminName }}</th>
+              <td>{{ row.targetName }}</td>
+              <td>{{ row.startedAt|date('Y-m-d H:i:s') }} UTC</td>
+              <td>{{ row.endedAt ? row.endedAt|date('Y-m-d H:i:s') ~ ' UTC' : '' }}</td>
+              <td>{{ row.durationLabel }}</td>
+              <td>{{ row.endReason ? row.endReason.label : 'Still open' }}</td>
+              <td>{{ row.actionCount }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+  {% if page.lastPage > 1 %}
+    <nav class="pager" aria-label="Pagination">
+      {% if page.page > 1 %}<a class="button button--secondary" rel="prev" href="/admin/impersonations?page={{ page.page - 1 }}">Previous</a>{% endif %}
+      <span>Page {{ page.page }} of {{ page.lastPage }}</span>
+      {% if page.page < page.lastPage %}<a class="button button--secondary" rel="next" href="/admin/impersonations?page={{ page.page + 1 }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+{% endblock %}

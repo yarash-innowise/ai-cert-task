@@ -1,0 +1,21 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Delete {{ subject.name }}?</h1>
+  {{ f.error_summary(errors|filter((message, key) => key != 'user')) }}
+  {% include 'admin/users/_refusal.twig' %}
+  <div class="notice" role="alert">
+    <p><strong>This cannot be undone.</strong> The name becomes "Deleted User", the email becomes a placeholder, and the phone number, photo and other personal details are removed. The user can never sign in or be reactivated. Their history stays, shown as "Deleted User".</p>
+  </div>
+  <dl class="facts">
+    <dt>User</dt><dd>{{ subject.name }}</dd>
+    <dt>Role</dt><dd>{{ subject.role.label }}</dd>
+    <dt>Status</dt><dd>{{ subject.status.label }}</dd>
+  </dl>
+  <form method="post" action="/admin/users/{{ subject.id }}/delete" novalidate>
+    {{ csrf_field() }}
+    {{ f.textarea('reason', 'Reason for the deletion (required, kept in the audit log)', old.reason|default(''), errors.reason|default(null), 'For example: privacy request received on the support desk.', 3) }}
+    <button class="button" type="submit">Yes, delete {{ subject.name }} permanently</button>
+    <a class="button button--secondary" href="/admin/users">Cancel</a>
+  </form>
+{% endblock %}

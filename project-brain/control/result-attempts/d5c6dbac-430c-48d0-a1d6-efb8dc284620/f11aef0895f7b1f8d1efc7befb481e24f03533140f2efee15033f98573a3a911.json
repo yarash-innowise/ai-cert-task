@@ -1,0 +1,9 @@
+{
+  "attestation": "agent",
+  "digest": "c36be0ae791a96c1f91fa750bfe92d2519bdb7e4380413c3f70bd2d83ca07b05",
+  "owner": "local",
+  "profile": "memory-result-proof-v1",
+  "result_id": "native-c9d416c500c641fdb9f1779d433db6f5",
+  "state": "complete",
+  "task_id": "d5c6dbac-430c-48d0-a1d6-efb8dc284620"
+}

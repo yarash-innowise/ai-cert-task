@@ -1,0 +1,14 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}{{ headline }}{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">{{ headline }}</h1>
+  <p>Hello {{ recipient_name }},</p>
+  <p>{{ detail }}</p>
+  <ul>
+    <li>Event: {{ event_label }}</li>
+    <li>Trainer: {{ business_name }}</li>
+    {% if amount_label %}<li>Amount: {{ amount_label }}</li>{% endif %}
+  </ul>
+  {% if parent_note %}<p style="border-left: 3px solid #D9D9D9; padding-left: 12px;">Note from the parent: {{ parent_note }}</p>{% endif %}
+  <p><a href="{{ view_url }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">View request</a></p>
+{% endblock %}

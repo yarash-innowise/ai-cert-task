@@ -1,0 +1,26 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>{{ coach.name }}</h1>
+  {% if coach.organizationName %}<p class="caption">Coach at {{ coach.organizationName }}</p>{% endif %}
+  {% if coach.viewerIsOwner and not coach.isPublic %}
+    <p class="notice" role="status">This profile is not public. Only you and your Trainer can see it.</p>
+  {% endif %}
+  {% if coach.hasPhoto %}
+    <p><img class="avatar" src="/media/user-thumb/{{ coach.coachId }}" alt="Photo of {{ coach.name }}" width="128" height="128"></p>
+  {% endif %}
+  {% if coach.bio %}
+    <h2>About</h2>
+    <p>{{ coach.bio|nl2br }}</p>
+  {% endif %}
+  {% if coach.credentials %}
+    <h2>Credentials</h2>
+    <p>{{ coach.credentials|nl2br }}</p>
+  {% endif %}
+  {% if coach.certifications %}
+    <h2>Certifications</h2>
+    <ul>{% for certification in coach.certifications %}<li>{{ certification }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if not coach.bio and not coach.credentials and not coach.certifications %}
+    <p>This Coach has not added profile details yet.</p>
+  {% endif %}
+{% endblock %}

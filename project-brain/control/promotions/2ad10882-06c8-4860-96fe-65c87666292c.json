@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Edge-case row says deletion refused while Trainer has coaches and players; accepted Q-01.15 default says only active coaches block. Implementation follows Q-01.15; needs user confirmation before closing.\n\n## Sources\n- specs/requirements-analyst-user-management-auth-spec.md",
+  "created_at": "2026-11-12T14:06:33.069664+00:00",
+  "destination_memory_id": "MEM-20261112-7009aade",
+  "destination_revision": 1,
+  "id": "2ad10882-06c8-4860-96fe-65c87666292c",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T14:06:33.073227+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "7009aade-b748-49a2-ab39-82829bbcbf10",
+      "path": "project-brain/dynamic/findings/7009aade-b748-49a2-ab39-82829bbcbf10.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "Spec conflict on Trainer deletion blockers",
+  "updated_at": "2026-11-12T14:06:33.094458+00:00"
+}

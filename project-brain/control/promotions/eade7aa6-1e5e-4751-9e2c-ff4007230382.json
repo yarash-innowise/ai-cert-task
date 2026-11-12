@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "fixed in review round R2; verified by full phpunit 997 green, phpstan L8, cs clean\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:31:11.873781+00:00",
+  "destination_memory_id": "MEM-20261112-d688c8b0",
+  "destination_revision": 1,
+  "id": "eade7aa6-1e5e-4751-9e2c-ff4007230382",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:11.877777+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "d688c8b0-2759-4e8f-a807-2a3e67e6fcdb",
+      "path": "project-brain/dynamic/findings/d688c8b0-2759-4e8f-a807-2a3e67e6fcdb.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-05 [Med] Plaintext one-time links + PII kept in `outbox.payload` forever; no outbox purge",
+  "updated_at": "2026-11-12T22:31:11.911565+00:00"
+}

@@ -1,0 +1,19 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>View as {{ subject.name }}?</h1>
+  {% include 'admin/users/_refusal.twig' %}
+  <dl class="facts">
+    <dt>User</dt><dd>{{ subject.name }}</dd>
+    <dt>Role</dt><dd>{{ subject.role.label }}</dd>
+    <dt>Status</dt><dd>{{ subject.status.label }}</dd>
+  </dl>
+  <p>You will see the application exactly as {{ subject.name }} ({{ subject.role.label }}) sees it, for at most 1 hour. Everything you do is logged with your name.</p>
+  {% if subject.status.value == 'inactive' %}
+    <p>This user is inactive, so you can look but not change anything.</p>
+  {% endif %}
+  <form method="post" action="/admin/users/{{ subject.id }}/impersonate">
+    {{ csrf_field() }}
+    <button class="button" type="submit">Yes, view as {{ subject.name }} ({{ subject.role.label }})</button>
+    <a class="button button--secondary" href="/admin/users">Cancel</a>
+  </form>
+{% endblock %}

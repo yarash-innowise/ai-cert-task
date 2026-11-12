@@ -1,0 +1,22 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Train yourself too</h1>
+  <p>Create a "Me" profile so you can train with your Trainers alongside your children. You must be 18 or older.</p>
+  {{ f.error_summary(errors) }}
+  <form method="post" action="/family/me" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('birth_date', 'Your birth date', old.birth_date|default(''), errors.birth_date|default(null), 'date', null, true, 'bday') }}
+    <div class="field">
+      <label for="field-gender">Gender (optional)</label>
+      <select class="input" id="field-gender" name="gender">
+        <option value="">Prefer not to say</option>
+        <option value="female"{% if old.gender|default('') == 'female' %} selected{% endif %}>Female</option>
+        <option value="male"{% if old.gender|default('') == 'male' %} selected{% endif %}>Male</option>
+        <option value="other"{% if old.gender|default('') == 'other' %} selected{% endif %}>Other</option>
+      </select>
+    </div>
+    <button class="button" type="submit">Create my profile</button>
+    <a class="button button--secondary" href="/family/children">Cancel</a>
+  </form>
+{% endblock %}

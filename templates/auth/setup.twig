@@ -1,0 +1,18 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  {% if invalid %}
+    <h1>This link is not valid</h1>
+    <p>The link has expired or has already been used. Setup links work once and expire 7 days after they are sent. Ask your administrator to send a new one.</p>
+  {% else %}
+    <h1>Set up your account</h1>
+    <p>Choose a password to finish setting up your Trainer account.</p>
+    {{ f.error_summary(errors) }}
+    <form method="post" action="/setup/{{ token|url_encode }}" novalidate>
+      {{ csrf_field() }}
+      {{ f.field('password', 'Password', '', errors.password|default(null), 'password', '10 to 128 characters.', true, 'new-password') }}
+      {{ f.field('password_confirmation', 'Repeat the password', '', errors.password_confirmation|default(null), 'password', null, true, 'new-password') }}
+      <button class="button" type="submit">Save password and continue</button>
+    </form>
+  {% endif %}
+{% endblock %}

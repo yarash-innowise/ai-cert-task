@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Forbidden child actions return 403 (not 404) via DenyChildLoginMiddleware plus ChildCapabilities; new parent-only family routes must be added to that guard, and reserved routes exist for payment methods, token purchase, purchase completion and account deletion.\n\n## Sources\n- src/Family/Domain/ChildCapabilities.php\n- src/Identity/Http/DenyChildLoginMiddleware.php",
+  "created_at": "2026-11-12T12:53:17.202370+00:00",
+  "destination_memory_id": "MEM-20261112-201f0328",
+  "destination_revision": 1,
+  "id": "71567c40-813c-48d3-86f4-a034f4be0507",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T12:53:17.205295+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "201f0328-884e-438a-85cc-8de37b6e2fca",
+      "path": "project-brain/dynamic/decisions/201f0328-884e-438a-85cc-8de37b6e2fca.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Child logins are refused by DenyChildLoginMiddleware with 403",
+  "updated_at": "2026-11-12T12:53:17.223835+00:00"
+}

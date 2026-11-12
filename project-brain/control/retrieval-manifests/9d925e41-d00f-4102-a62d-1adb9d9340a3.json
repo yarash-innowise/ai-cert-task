@@ -1,0 +1,200 @@
+{
+  "created_at": "2026-11-12T11:38:25.739094+00:00",
+  "entry_point": "retrieve",
+  "escalation_reason": null,
+  "excluded": [
+    {
+      "path": "project-brain/control/handoffs/d5c6dbac-430c-48d0-a1d6-efb8dc284620.md",
+      "reason": "lifecycle"
+    },
+    {
+      "path": "project-brain/dynamic/tasks/d5c6dbac-430c-48d0-a1d6-efb8dc284620.md",
+      "reason": "working-task"
+    },
+    {
+      "path": ".claude/skills/code-reviewer/SKILL.md",
+      "reason": "budget"
+    },
+    {
+      "path": ".claude/skills/test-generator/SKILL.md",
+      "reason": "budget"
+    },
+    {
+      "path": ".claude/skills/SKILL FLOW.md",
+      "reason": "skill-subfile"
+    },
+    {
+      "path": ".claude/skills/dependency-manager/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/coder/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/security-reviewer/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/brainstorming/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/memory-bank/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/researcher/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/wcag-accessibility/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/architect/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/api-designer/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/documentation-generator/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/codebase-mapper/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": "specs/requirements-analyst-user-management-auth-spec.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/architecture-implementer/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/writing-plans/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/council/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": "AGENTS.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/requirements-analyst/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": ".claude/skills/database-designer/SKILL.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": "memory-bank/chunks/MEM-20261112-21462622-spec-files-need-skill-name-prefix-even-in-sdd.md",
+      "reason": "layer-limit"
+    },
+    {
+      "path": "project-brain/dynamic/decisions/21462622-e53c-4a71-a4d4-e8e6f00cc371.md",
+      "reason": "layer-limit"
+    }
+  ],
+  "filters": {
+    "active_only": true,
+    "authority": [
+      "observed",
+      "verified"
+    ],
+    "freshness": true,
+    "owners": [
+      "*"
+    ],
+    "privacy": [
+      "public",
+      "team"
+    ]
+  },
+  "gate": {
+    "decision": "retrieve",
+    "mode": "shadow",
+    "reason": "new-selection",
+    "signals": {
+      "distinctive_matches": 0,
+      "informative_terms": 4,
+      "no_match": [
+        "episodic"
+      ],
+      "query_unchanged_from_previous_turn": false,
+      "selection_identical_to_previous_turn": false,
+      "top_score": 7.061503
+    }
+  },
+  "host": "cli",
+  "id": "9d925e41-d00f-4102-a62d-1adb9d9340a3",
+  "local_episode_count": 0,
+  "phase_seconds": {
+    "index": 0.014795,
+    "retrieval": 0.043553,
+    "stat": 0.010603
+  },
+  "provider": "sqlite-fts5",
+  "query": "user management auth architecture php postgres",
+  "query_source": "explicit",
+  "schema_version": 4,
+  "selected": [
+    {
+      "category": "evidence",
+      "estimated_tokens": 65,
+      "match": "covered",
+      "path": "specs/MANIFEST.md",
+      "rank": 1,
+      "score": 7.061503,
+      "source_hash": "178fc85272d66b54919a8d728f66390649799c7055014c61ffa94c6277945551"
+    },
+    {
+      "category": "evidence",
+      "estimated_tokens": 75,
+      "match": "covered",
+      "path": "README.md",
+      "rank": 13,
+      "score": 3.576795,
+      "source_hash": "fac5195783486080058f751b863a4b380071b1fb86f04c35e1edb10b8dbdfa94"
+    },
+    {
+      "category": "evidence",
+      "estimated_tokens": 80,
+      "match": "covered",
+      "path": "tasks/README.md",
+      "rank": 15,
+      "score": 3.375581,
+      "source_hash": "146c9052390cd65ecb423f082db83e839eb936650be50cb8a5e098ac18a7d1af"
+    }
+  ],
+  "source_links": {
+    "anchors": 2,
+    "candidates": 2,
+    "delivered": 0
+  },
+  "task_id": "d5c6dbac-430c-48d0-a1d6-efb8dc284620",
+  "task_revision": 3,
+  "token_estimates": {
+    "durable": 0,
+    "dynamic": 0,
+    "evidence": 220,
+    "handoff": 0,
+    "hard": 12000,
+    "local_episodes": 0,
+    "policy": 0,
+    "target": 8000,
+    "total": 220
+  }
+}

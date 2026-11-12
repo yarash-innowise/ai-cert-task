@@ -1,0 +1,7 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  {{ f.error_summary(errors) }}
+  <h1>Test form</h1>
+  <form method="post">{{ f.field('name', 'Name', old.name|default(''), errors.name|default(null), 'text', null, true) }}</form>
+{% endblock %}

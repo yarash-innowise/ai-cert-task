@@ -1,0 +1,6 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Check your email</h1>
+  <p>Your account is created and you are now a player{% if business_name %} with {{ business_name }}{% endif %}. We sent a confirmation to {{ email }}. Open the link in the email to confirm your address, then sign in.</p>
+  <p><a class="button" href="/login">Sign in</a></p>
+{% endblock %}

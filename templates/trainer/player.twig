@@ -1,0 +1,12 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>{{ player.name }}{% if player.inactive %} <span class="badge badge--inactive">Inactive</span>{% endif %}</h1>
+  <dl>
+    <dt>Type</dt><dd>{{ player.isChild ? 'Child' : 'Adult' }}</dd>
+    <dt>Age</dt><dd>{{ player.age is null ? 'Unknown' : player.age }}</dd>
+    <dt>Account holder</dt><dd>{{ player.accountHolderName }}</dd>
+    <dt>With you since</dt><dd>{{ player.associatedSince|date('Y-m-d') }}</dd>
+  </dl>
+  {% if player.inactive %}<p class="caption">This account is inactive. Their history stays on your roster.</p>{% endif %}
+  <p><a href="/trainer/players">Back to players</a></p>
+{% endblock %}

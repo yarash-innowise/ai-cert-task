@@ -1,0 +1,18 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  {% if is_child %}
+    <h1>Join {{ business_name }}?</h1>
+    <p>Children cannot join a Trainer on their own. If you confirm, we will ask your parent to register you with {{ business_name }}. Nothing changes on your account.</p>
+    <form method="post" action="/join/{{ code|url_encode }}" novalidate>
+      {{ csrf_field() }}
+      <button type="submit" class="button">Ask my parent</button>
+    </form>
+  {% else %}
+    <h1>Join {{ business_name }}</h1>
+    <p>You have been invited to train with {{ business_name }}. Confirm to join their program.</p>
+    <form method="post" action="/join/{{ code|url_encode }}" novalidate>
+      {{ csrf_field() }}
+      <button type="submit" class="button">Join {{ business_name }}</button>
+    </form>
+  {% endif %}
+{% endblock %}

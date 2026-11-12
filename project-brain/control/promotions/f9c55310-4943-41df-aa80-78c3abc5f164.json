@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Photos and logos live in private storage and are served at /media/{kind}/{id} after PdoMediaAccess checks the viewer; new media kinds must add an access rule there rather than exposing public paths.\n\n## Sources\n- src/Shared/Http/MediaController.php",
+  "created_at": "2026-11-12T13:50:12.224613+00:00",
+  "destination_memory_id": "MEM-20261112-b25c265d",
+  "destination_revision": 1,
+  "id": "f9c55310-4943-41df-aa80-78c3abc5f164",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T13:50:12.227606+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "b25c265d-2401-43d0-96bc-5f92050a0230",
+      "path": "project-brain/dynamic/decisions/b25c265d-2401-43d0-96bc-5f92050a0230.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Uploaded files are served only via authorizing MediaController",
+  "updated_at": "2026-11-12T13:50:12.246984+00:00"
+}

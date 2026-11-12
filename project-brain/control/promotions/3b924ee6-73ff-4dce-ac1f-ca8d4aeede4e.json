@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Without <env name=APP_ENV value=testing force=true/> in phpunit.xml.dist, HTTP tests ran against the dev database app instead of app_test; keep the forced env.\n\n## Sources\n- phpunit.xml.dist",
+  "created_at": "2026-11-12T21:27:52.056067+00:00",
+  "destination_memory_id": "MEM-20261112-a77649a7",
+  "destination_revision": 1,
+  "id": "3b924ee6-73ff-4dce-ac1f-ca8d4aeede4e",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T21:27:52.058443+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "a77649a7-2c97-44be-bac6-310412e1f542",
+      "path": "project-brain/dynamic/findings/a77649a7-2c97-44be-bac6-310412e1f542.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "PHPUnit must force APP_ENV=testing",
+  "updated_at": "2026-11-12T21:27:52.076668+00:00"
+}

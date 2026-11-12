@@ -1,0 +1,57 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Coaches</h1>
+  <h2>Your Coaches</h2>
+  {% if coaches is empty %}
+    <p>You have no active Coaches yet.</p>
+  {% else %}
+    <ul>
+      {% for c in coaches %}
+        <li><a href="/trainer/coaches/{{ c.userId }}">{{ c.name }}</a>{% if c.inactive %} <span class="badge badge--inactive">Inactive</span>{% endif %} <span class="caption">since {{ c.activeSince|date('Y-m-d') }}</span></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <h2>Invite a Coach</h2>
+  <p>The Coach gets an email with a personal link. The link works once and is valid for 7 days.</p>
+  {{ f.error_summary(errors) }}
+  <form method="post" action="/trainer/coaches/invite" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('email', 'Coach email', old.email|default(''), errors.email|default(null), 'email', null, true, 'off') }}
+    {{ f.field('name', 'Coach name', old.name|default(''), errors.name|default(null), 'text', 'Optional.', false, 'off') }}
+    <div class="field{% if errors.message|default(null) %} field--error{% endif %}">
+      <label for="field-message">Message</label>
+      <p class="hint" id="hint-message">Optional. Shown in the invitation email.</p>
+      {% if errors.message|default(null) %}<p class="field__error" id="error-message"><span class="visually-hidden">Error: </span>{{ errors.message }}</p>{% endif %}
+      <textarea class="input" id="field-message" name="message" rows="3" aria-describedby="hint-message{% if errors.message|default(null) %} error-message{% endif %}"{% if errors.message|default(null) %} aria-invalid="true"{% endif %}>{{ old.message|default('') }}</textarea>
+    </div>
+    <button class="button" type="submit">Send invitation</button>
+  </form>
+
+  <h2>Invitations</h2>
+  {% if invitations is empty %}
+    <p>You have not invited anyone yet.</p>
+  {% else %}
+    <table class="table">
+      <caption class="visually-hidden">Coach invitations and their status</caption>
+      <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Status</th><th scope="col">Action</th></tr></thead>
+      <tbody>
+        {% for item in invitations %}
+          <tr>
+            <td>{{ item.invitation.email }}{% if item.invitation.name %} ({{ item.invitation.name }}){% endif %}</td>
+            <td>{{ item.invitation.createdAt|date('Y-m-d') }}</td>
+            <td><span class="badge">{{ item.status.label }}</span></td>
+            <td>
+              {% if item.status.value != 'accepted' %}
+                <form method="post" action="/trainer/coaches/invitations/{{ item.invitation.id }}/resend">
+                  {{ csrf_field() }}
+                  <button class="button button--secondary" type="submit">Resend</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Availability for {{ profile.firstName }}</h1>
+  <p>Choose when {{ profile.firstName }} can train each week. Trainers see this when planning sessions; it never stops a session from being scheduled. Days left on "No preference" tell the Trainer nothing.</p>
+  <form method="post" action="/family/availability/{{ profile.id }}" novalidate>
+    {{ csrf_field() }}
+    {% include 'availability/_week.twig' %}
+    <button class="button" type="submit">Save availability</button>
+    <a class="button button--secondary" href="/family/availability">Back</a>
+  </form>
+{% endblock %}

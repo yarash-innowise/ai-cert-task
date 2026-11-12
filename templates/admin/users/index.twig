@@ -1,0 +1,87 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Users</h1>
+  <p><a class="button" href="/admin/users/new">Create Trainer</a> <a class="button button--secondary" href="/admin/impersonations">Impersonation history</a></p>
+
+  <form method="get" action="/admin/users" role="search" aria-label="Search and filter users" class="filter-bar">
+    <div class="field">
+      <label for="filter-q">Search by name or email</label>
+      <input class="input" id="filter-q" name="q" type="search" value="{{ filters.q }}" maxlength="100">
+    </div>
+    <div class="field">
+      <label for="filter-role">Role</label>
+      <select class="input" id="filter-role" name="role">
+        <option value="">All roles</option>
+        {% for r in roles %}<option value="{{ r.value }}"{% if filters.role == r.value %} selected{% endif %}>{{ r.label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="filter-status">Status</label>
+      <select class="input" id="filter-status" name="status">
+        <option value="">All statuses</option>
+        {% for s in statuses %}<option value="{{ s.value }}"{% if filters.status == s.value %} selected{% endif %}>{{ s.label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="filter-organization">Organization</label>
+      <select class="input" id="filter-organization" name="organization">
+        <option value="">All organizations</option>
+        {% for o in organizations %}<option value="{{ o.id }}"{% if filters.organization == o.id %} selected{% endif %}>{{ o.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <button class="button" type="submit">Apply</button>
+    <a class="button button--secondary" href="/admin/users">Clear</a>
+  </form>
+
+  <p class="caption" role="status">{{ page.total }} user{{ page.total == 1 ? '' : 's' }} found. Page {{ page.page }} of {{ page.lastPage }}.</p>
+
+  {% if page.items is empty %}
+    <p>No users match these filters.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Users</caption>
+        <thead>
+          <tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th><th scope="col">Organization</th><th scope="col">Status</th><th scope="col">Created</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr>
+        </thead>
+        <tbody>
+          {% for u in page.items %}
+            <tr>
+              <th scope="row">{{ u.name }}</th>
+              <td>{{ u.email }}</td>
+              <td>{{ u.role.label }}</td>
+              <td>{{ u.organizationName ?? '' }}</td>
+              <td><span class="badge badge--{{ u.status.value }}">{{ u.status.label }}</span></td>
+              <td>{{ u.createdAt|date('Y-m-d') }}</td>
+              <td class="actions">
+                {% if u.status.value != 'deleted' %}
+                  <a href="/admin/users/{{ u.id }}/edit">Edit<span class="visually-hidden"> {{ u.name }}</span></a>
+                  {% if u.status.value == 'active' %}
+                    <a href="/admin/users/{{ u.id }}/deactivate">Deactivate<span class="visually-hidden"> {{ u.name }}</span></a>
+                  {% else %}
+                    <form method="post" action="/admin/users/{{ u.id }}/reactivate" class="inline-form">
+                      {{ csrf_field() }}
+                      <button class="link-button" type="submit">Reactivate<span class="visually-hidden"> {{ u.name }}</span></button>
+                    </form>
+                  {% endif %}
+                  {% if u.role.value != 'super_admin' %}
+                    <a href="/admin/users/{{ u.id }}/impersonate">Impersonate<span class="visually-hidden"> {{ u.name }}</span></a>
+                  {% endif %}
+                  <a href="/admin/users/{{ u.id }}/delete">Delete<span class="visually-hidden"> {{ u.name }}</span></a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {% if page.lastPage > 1 %}
+    <nav class="pager" aria-label="Pagination">
+      {% if page.page > 1 %}<a class="button button--secondary" rel="prev" href="/admin/users?{{ filters|merge({page: page.page - 1})|url_encode }}">Previous</a>{% endif %}
+      <span>Page {{ page.page }} of {{ page.lastPage }}</span>
+      {% if page.page < page.lastPage %}<a class="button button--secondary" rel="next" href="/admin/users?{{ filters|merge({page: page.page + 1})|url_encode }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+{% endblock %}

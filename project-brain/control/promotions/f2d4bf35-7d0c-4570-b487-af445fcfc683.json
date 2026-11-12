@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "tests/Http/TenantIsolation/TenantRouteRegistry must classify each route as tenant or non-tenant; the harness fails on unclassified routes and expects 404 for foreign-organization access.\n\n## Sources\n- tests/Http/TenantIsolation/TenantRouteRegistry.php",
+  "created_at": "2026-11-12T12:29:27.389976+00:00",
+  "destination_memory_id": "MEM-20261112-ce55d7d6",
+  "destination_revision": 1,
+  "id": "f2d4bf35-7d0c-4570-b487-af445fcfc683",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T12:29:27.392190+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "ce55d7d6-1077-41cc-a701-4288a9f14792",
+      "path": "project-brain/dynamic/decisions/ce55d7d6-1077-41cc-a701-4288a9f14792.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Every tenant route must register in the isolation harness",
+  "updated_at": "2026-11-12T12:29:27.402894+00:00"
+}

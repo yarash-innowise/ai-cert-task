@@ -1,0 +1,14 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Login for {{ profile.firstName }}</h1>
+  <p>{{ profile.firstName }} will sign in with this email and password. {{ profile.firstName }} can only see their own Trainers and cannot change family settings.</p>
+  {{ f.error_summary(errors) }}
+  <form method="post" action="/family/children/{{ profile.id }}/login" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('email', 'Email for ' ~ profile.firstName, old.email|default(''), errors.email|default(null), 'email', null, true, 'off') }}
+    {{ f.field('password', 'Password', '', errors.password|default(null), 'password', 'At least 10 characters.', true, 'new-password') }}
+    <button class="button" type="submit">Create login</button>
+    <a class="button button--secondary" href="/family/children">Cancel</a>
+  </form>
+{% endblock %}

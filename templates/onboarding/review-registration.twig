@@ -1,0 +1,16 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Review registration</h1>
+  {% if already %}
+    <p>{{ child.fullName }} is already registered with {{ business_name }}.</p>
+    <p><a class="button" href="/family/children">Back to my children</a></p>
+  {% else %}
+    <p>{{ child.fullName }} asked to join {{ business_name }}'s program. Register {{ child.firstName }} with {{ business_name }}?</p>
+    <form method="post" action="/family/join/{{ code|url_encode }}">
+      {{ csrf_field() }}
+      <input type="hidden" name="child" value="{{ child.id }}">
+      <button class="button" type="submit">Register {{ child.firstName }}</button>
+      <a class="button button--secondary" href="/family/children">Not now</a>
+    </form>
+  {% endif %}
+{% endblock %}

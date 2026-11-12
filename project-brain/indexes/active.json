@@ -1,0 +1,135 @@
+[
+  {
+    "id": "15f2f582-db5d-47f4-978e-5f2c228f3542",
+    "path": "project-brain/dynamic/decisions/15f2f582-db5d-47f4-978e-5f2c228f3542.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "1afc8f1d-b5fa-42f1-941a-e2ba829fc5c2",
+    "path": "project-brain/dynamic/decisions/1afc8f1d-b5fa-42f1-941a-e2ba829fc5c2.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "201f0328-884e-438a-85cc-8de37b6e2fca",
+    "path": "project-brain/dynamic/decisions/201f0328-884e-438a-85cc-8de37b6e2fca.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "21462622-e53c-4a71-a4d4-e8e6f00cc371",
+    "path": "project-brain/dynamic/decisions/21462622-e53c-4a71-a4d4-e8e6f00cc371.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "31fc1f43-aa33-47c4-b203-a8a7f92505f4",
+    "path": "project-brain/dynamic/decisions/31fc1f43-aa33-47c4-b203-a8a7f92505f4.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "43486df8-1245-495a-90b2-4578d88a78f7",
+    "path": "project-brain/dynamic/decisions/43486df8-1245-495a-90b2-4578d88a78f7.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "6a0df072-7dee-4f4a-9975-eb8932902756",
+    "path": "project-brain/dynamic/decisions/6a0df072-7dee-4f4a-9975-eb8932902756.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "86faf4df-2603-43c1-aa7e-4980e525c63e",
+    "path": "project-brain/dynamic/decisions/86faf4df-2603-43c1-aa7e-4980e525c63e.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "a12087cf-0a2e-4109-9a85-3e0513aa0304",
+    "path": "project-brain/dynamic/decisions/a12087cf-0a2e-4109-9a85-3e0513aa0304.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "b25c265d-2401-43d0-96bc-5f92050a0230",
+    "path": "project-brain/dynamic/decisions/b25c265d-2401-43d0-96bc-5f92050a0230.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "ca323135-ca7a-4d5b-b2ac-7df19c16506a",
+    "path": "project-brain/dynamic/decisions/ca323135-ca7a-4d5b-b2ac-7df19c16506a.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "ce55d7d6-1077-41cc-a701-4288a9f14792",
+    "path": "project-brain/dynamic/decisions/ce55d7d6-1077-41cc-a701-4288a9f14792.md",
+    "revision": 2,
+    "status": "accepted",
+    "type": "decision"
+  },
+  {
+    "id": "5487def9-ba9b-47b8-96eb-39613dbb1050",
+    "path": "project-brain/dynamic/findings/5487def9-ba9b-47b8-96eb-39613dbb1050.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "97b468c3-5d83-46f3-b244-a3706b0047c3",
+    "path": "project-brain/dynamic/findings/97b468c3-5d83-46f3-b244-a3706b0047c3.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "9e31d539-8443-4cb4-bc65-3be6bcff9271",
+    "path": "project-brain/dynamic/findings/9e31d539-8443-4cb4-bc65-3be6bcff9271.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "bb19e67a-1ccf-4dc1-9d2b-672344cf62b5",
+    "path": "project-brain/dynamic/findings/bb19e67a-1ccf-4dc1-9d2b-672344cf62b5.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "d2729c5b-a519-4f2d-8645-9184b621947c",
+    "path": "project-brain/dynamic/findings/d2729c5b-a519-4f2d-8645-9184b621947c.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "e868329b-e658-46a7-a9f4-23bd733af258",
+    "path": "project-brain/dynamic/findings/e868329b-e658-46a7-a9f4-23bd733af258.md",
+    "revision": 2,
+    "status": "open",
+    "type": "finding"
+  },
+  {
+    "id": "d5c6dbac-430c-48d0-a1d6-efb8dc284620",
+    "path": "project-brain/dynamic/tasks/d5c6dbac-430c-48d0-a1d6-efb8dc284620.md",
+    "revision": 56,
+    "status": "active",
+    "type": "task"
+  }
+]

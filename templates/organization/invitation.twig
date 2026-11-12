@@ -1,0 +1,25 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Join {{ business_name }} as a Coach</h1>
+  <p>{{ business_name }} invited <strong>{{ invited_email }}</strong> to join as a Coach.</p>
+  {% if message %}<blockquote>{{ message }}</blockquote>{% endif %}
+  {% if mismatch %}
+    <p role="alert">{{ mismatch }}</p>
+  {% elseif signed_in %}
+    <form method="post" action="/invitations/{{ token|url_encode }}">
+      {{ csrf_field() }}
+      <button class="button" type="submit">Accept invitation</button>
+    </form>
+  {% else %}
+    <p>Already have a Coach account? <a href="/login?return_to={{ ('/invitations/' ~ token)|url_encode }}">Sign in</a> to accept.</p>
+    <h2>Create your Coach account</h2>
+    {{ f.error_summary(errors) }}
+    <form method="post" action="/invitations/{{ token|url_encode }}" novalidate>
+      {{ csrf_field() }}
+      {{ f.field('name', 'Your name', old.name|default(''), errors.name|default(null), 'text', null, true, 'name') }}
+      {{ f.field('password', 'Password', '', errors.password|default(null), 'password', '10 to 128 characters.', true, 'new-password') }}
+      <button class="button" type="submit">Create account and accept</button>
+    </form>
+  {% endif %}
+{% endblock %}

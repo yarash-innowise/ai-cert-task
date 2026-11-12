@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "fixed in review round R1; verified by full phpunit 997 green, phpstan L8, cs clean\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:31:10.904116+00:00",
+  "destination_memory_id": "MEM-20261112-12ba97b7",
+  "destination_revision": 1,
+  "id": "cefa7c9a-348f-43b1-bf1d-bcfb950ca0b5",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:10.907405+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "12ba97b7-378a-468b-954f-0084d6812bea",
+      "path": "project-brain/dynamic/findings/12ba97b7-378a-468b-954f-0084d6812bea.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-06 [Med] Admin email change leaves setup/reset/verify tokens and sessions live (mistyped Trainer email -> takeover via 7-day setup link)",
+  "updated_at": "2026-11-12T22:31:10.940203+00:00"
+}

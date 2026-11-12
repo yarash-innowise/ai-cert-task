@@ -1,0 +1,8 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}{{ child_name }} wants to join {{ business_name }}'s program{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">{{ child_name }} wants to join {{ business_name }}'s program</h1>
+  <p>Hello {{ parent_name }},</p>
+  <p>{{ child_name }} opened the registration link of {{ business_name }}. Children cannot register themselves, so nothing has happened yet. Review the request and decide whether to register {{ child_name }}.</p>
+  <p><a href="{{ review_url }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">Review Registration</a></p>
+{% endblock %}

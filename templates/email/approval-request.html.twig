@@ -1,0 +1,15 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}{{ child_name }} needs your approval: {{ kind_label }}{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">{{ child_name }} needs your approval</h1>
+  <p>Hello {{ parent_name }},</p>
+  <p>{{ child_name }} asked for a {{ kind_label }} with {{ business_name }}.</p>
+  <ul>
+    <li>Event: {{ event_label }}</li>
+    {% if amount_label %}<li>Amount: {{ amount_label }}</li>{% endif %}
+    <li>Payment: {{ payment_label }}</li>
+  </ul>
+  {% if child_note %}<p style="border-left: 3px solid #D9D9D9; padding-left: 12px;">{{ child_note }}</p>{% endif %}
+  <p>Nothing happens until you answer. If you do not answer by {{ expires_at }}, the request is denied automatically.</p>
+  <p><a href="{{ review_url }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">Review request</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{# Sticky, color-distinct banner shown on every page of an impersonation (AC-52). Exit is a POST form (AC-53). #}
+{% set viewing = impersonation() %}
+{% if viewing %}
+  <div class="impersonation-banner" role="region" aria-label="Impersonation">
+    <div class="container impersonation-banner__inner">
+      <p class="impersonation-banner__text">Viewing as {{ viewing.targetName }} | </p>
+      <form method="post" action="/impersonation/exit">
+        {{ csrf_field() }}
+        <button class="impersonation-banner__exit" type="submit">Exit Impersonation</button>
+      </form>
+      {% if viewing.readOnly %}<p class="impersonation-banner__text">This user is inactive: view only.</p>{% endif %}
+    </div>
+  </div>
+{% endif %}
