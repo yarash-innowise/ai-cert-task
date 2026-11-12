@@ -1,0 +1,16 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>{{ sent ? 'Check your email' : 'Resend the verification email' }}</h1>
+  {% if sent %}
+    <p>If that address belongs to an account that still needs verifying, we have sent a new link. It expires in 24 hours.</p>
+    <p><a href="/login">Back to sign in</a></p>
+  {% else %}
+    {{ f.error_summary(errors) }}
+    <form method="post" action="/verify-email/resend" novalidate>
+      {{ csrf_field() }}
+      {{ f.field('email', 'Email', old.email|default(''), errors.email|default(null), 'email', null, true, 'username') }}
+      <button class="button" type="submit">Send verification email</button>
+    </form>
+  {% endif %}
+{% endblock %}

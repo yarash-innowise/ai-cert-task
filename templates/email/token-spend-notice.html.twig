@@ -1,0 +1,8 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}{{ child_name }} spent {{ tokens }} tokens{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">{{ child_name }} spent {{ tokens }} tokens</h1>
+  <p>Hello {{ parent_name }},</p>
+  <p>{{ child_name }} spent {{ tokens }} tokens on {{ event_label }} with {{ business_name }}.</p>
+  <p>This is for your information only. You allowed token spending without approval, so there is nothing for you to approve. You can change this setting for {{ child_name }} at any time in your family settings.</p>
+{% endblock %}

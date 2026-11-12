@@ -1,0 +1,40 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Coach dashboard</h1>
+  <p><a href="/coach/schedule">Set my times</a> so Trainers can plan around your schedule.</p>
+  <h2>Your assignments</h2>
+  {% if errors is defined and errors %}
+    <div class="error-summary" role="alert"><ul>{% for message in errors %}<li>{{ message }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  {% if assignments is empty %}
+    <p>You have no assignments yet.</p>
+  {% else %}
+    <ul class="stack">
+      {% for a in assignments %}
+        <li class="card">
+          <h3>{{ a.eventRef }}</h3>
+          <p>{{ a.when }}</p>
+          <p><span class="badge">{{ a.status.label }}</span>{% if a.isOverride %} <span class="badge">Outside your schedule</span>{% endif %}</p>
+          {% if a.isOverride %}<p class="caption">The Trainer assigned you anyway: {{ a.overrideReason }}</p>{% endif %}
+          {% if a.changeNote %}<p class="caption">Your note: {{ a.changeNote }}</p>{% endif %}
+          {% if a.status.value != 'accepted' %}
+            <form method="post" action="/coach/assignments/{{ a.id }}/accept">
+              {{ csrf_field() }}
+              <button class="button" type="submit">Accept</button>
+            </form>
+          {% endif %}
+          {% if a.status.value != 'change_requested' %}
+            <form method="post" action="/coach/assignments/{{ a.id }}/change-request">
+              {{ csrf_field() }}
+              <div class="field">
+                <label for="note-{{ a.id }}">Why do you need a change? (optional)</label>
+                <input class="input" id="note-{{ a.id }}" name="note" type="text" maxlength="500">
+              </div>
+              <button class="button button--secondary" type="submit">Request a change</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  {% set r = item.request %}
+  <h1>{{ item.childName }} asks for a {{ r.kind.label }}</h1>
+  <dl>
+    <dt>Event</dt><dd>{{ r.eventLabel }}</dd>
+    <dt>Payment</dt><dd>{{ r.paymentType.label }}{% if r.amountLabel %}, {{ r.amountLabel }}{% endif %}</dd>
+    <dt>Asked</dt><dd>{{ r.createdAt|date('Y-m-d H:i', 'UTC') }} UTC</dd>
+    <dt>Answer by</dt><dd>{{ r.expiresAt|date('Y-m-d H:i', 'UTC') }} UTC</dd>
+    <dt>Status</dt><dd><span class="badge">{{ r.status.parentLabel }}</span></dd>
+    {% if r.childNote %}<dt>Note from {{ item.childName }}</dt><dd>{{ r.childNote }}</dd>{% endif %}
+    {% if r.parentNote %}<dt>Your note</dt><dd>{{ r.parentNote }}</dd>{% endif %}
+  </dl>
+  {% if item.canDecide %}
+    {{ f.error_summary(errors) }}
+    <form method="post" action="/family/approvals/{{ r.id }}/decision" novalidate>
+      {{ csrf_field() }}
+      <div class="field{% if errors.note|default(null) %} field--error{% endif %}">
+        <label for="field-note">Note (optional)</label>
+        <p class="hint" id="hint-note">{{ item.childName }} sees your note next to the answer.</p>
+        {% if errors.note|default(null) %}<p class="field__error" id="error-note"><span class="visually-hidden">Error: </span>{{ errors.note }}</p>{% endif %}
+        <textarea class="input" id="field-note" name="note" rows="3" aria-describedby="hint-note">{{ old.note|default('') }}</textarea>
+      </div>
+      <button class="button" type="submit" name="decision" value="approve">Approve</button>
+      <button class="button button--secondary" type="submit" name="decision" value="deny">Deny</button>
+      <button class="button button--secondary" type="submit" name="decision" value="info">Ask for more information</button>
+    </form>
+  {% elseif r.status.value in ['pending', 'info_requested'] %}
+    <p>This request expired and is denied automatically. Nothing was bought or booked.</p>
+  {% endif %}
+  <p><a href="/family/approvals">Back to approvals</a></p>
+{% endblock %}

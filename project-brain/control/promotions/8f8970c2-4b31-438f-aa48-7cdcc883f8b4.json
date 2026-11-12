@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Fixed in review round R1; tests green\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:30:59.328749+00:00",
+  "destination_memory_id": "MEM-20261112-14ec5b91",
+  "destination_revision": 1,
+  "id": "8f8970c2-4b31-438f-aa48-7cdcc883f8b4",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:30:59.331020+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "14ec5b91-d797-4102-b074-89d34aa1dae3",
+      "path": "project-brain/dynamic/findings/14ec5b91-d797-4102-b074-89d34aa1dae3.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-01 [High] Web app and worker connect as the DB owner/superuser, not `app_rw`; audit-log grants are moot, trigger can be disabled; SQLi would escalate",
+  "updated_at": "2026-11-12T22:30:59.353643+00:00"
+}

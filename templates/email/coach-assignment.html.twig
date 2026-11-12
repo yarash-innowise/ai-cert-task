@@ -1,0 +1,9 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}You were assigned to {{ event_ref }}{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">You were assigned to {{ event_ref }}</h1>
+  <p>Hello {{ recipient_name }},</p>
+  <p>{{ business_name }} assigned you to {{ event_ref }} on {{ event_when }}.</p>
+  {% if outside_schedule %}<p>This is outside the times in your schedule. You can still accept it, or ask for a change.</p>{% endif %}
+  <p><a href="{{ view_url }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">View assignment</a></p>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  {{ f.error_summary(errors) }}
+  <h1>Please check the form</h1>
+  <p>Go back, correct the highlighted details and submit again.</p>
+{% endblock %}

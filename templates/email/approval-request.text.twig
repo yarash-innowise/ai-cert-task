@@ -1,0 +1,13 @@
+Hello {{ parent_name }},
+
+{{ child_name }} asked for a {{ kind_label }} with {{ business_name }}.
+
+Event: {{ event_label }}
+{% if amount_label %}Amount: {{ amount_label }}
+{% endif %}Payment: {{ payment_label }}
+{% if child_note %}
+Note from {{ child_name }}: {{ child_note }}
+{% endif %}
+Nothing happens until you answer. If you do not answer by {{ expires_at }}, the request is denied automatically.
+
+Review request: {{ review_url }}

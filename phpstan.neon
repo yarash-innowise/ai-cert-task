@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+        - public
+        - config
+
+rules:
+    - Tests\Support\PhpStan\ModuleBoundaryRule

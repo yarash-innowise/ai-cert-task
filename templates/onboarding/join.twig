@@ -1,0 +1,9 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Join {{ business_name }}</h1>
+  <p>You have been invited to train with {{ business_name }}. Register a new account, or sign in if you already have one.</p>
+  <p>
+    <a class="button" href="/join/{{ code|url_encode }}/register">Register</a>
+    <a class="button button--secondary" href="/login?return_to={{ ('/join/' ~ code)|url_encode }}">Sign in</a>
+  </p>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Deactivate {{ subject.name }}?</h1>
+  {% include 'admin/users/_refusal.twig' %}
+  <dl class="facts">
+    <dt>User</dt><dd>{{ subject.name }}</dd>
+    <dt>Role</dt><dd>{{ subject.role.label }}</dd>
+    <dt>Status</dt><dd>{{ subject.status.label }}</dd>
+  </dl>
+  <p>{{ subject.name }} will be signed out everywhere and cannot sign in until you reactivate them. Their history stays visible, marked "Inactive".</p>
+  {% if subject.role.value == 'trainer' %}
+    <p>This Trainer's organization becomes inactive: its links stop working and its Coaches and players cannot use it.</p>
+  {% elseif subject.role.value == 'player' and subject.accountKind == 'standard' %}
+    <p>Pending requests waiting for this parent are denied automatically, and the logins of their children are deactivated too.</p>
+  {% endif %}
+  <form method="post" action="/admin/users/{{ subject.id }}/deactivate">
+    {{ csrf_field() }}
+    <button class="button" type="submit">Yes, deactivate {{ subject.name }}</button>
+    <a class="button button--secondary" href="/admin/users">Cancel</a>
+  </form>
+{% endblock %}

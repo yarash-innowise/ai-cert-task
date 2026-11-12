@@ -1,0 +1,62 @@
+{#
+  Base form components (WCAG 2.1 AA): visible labels bound by id, hint and error text linked with
+  aria-describedby, aria-invalid on failing fields, and an error summary whose links jump to the fields.
+  Field ids are "field-{name}"; errors is a map name => message.
+#}
+{% macro error_summary(errors) %}
+  {% if errors %}
+    <div class="error-summary" id="error-summary" role="alert" tabindex="-1" aria-labelledby="error-summary-title">
+      <h2 id="error-summary-title" class="error-summary__title">There is a problem</h2>
+      <ul>
+        {% for name, message in errors %}
+          <li><a href="#field-{{ name }}">{{ message }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro field(name, label, value = '', error = null, type = 'text', hint = null, required = false, autocomplete = null) %}
+  {% set described = [] %}
+  {% if hint %}{% set described = described|merge(['hint-' ~ name]) %}{% endif %}
+  {% if error %}{% set described = described|merge(['error-' ~ name]) %}{% endif %}
+  <div class="field{% if error %} field--error{% endif %}">
+    <label for="field-{{ name }}">{{ label }}{% if required %} <span class="field__required">(required)</span>{% endif %}</label>
+    {% if hint %}<p class="hint" id="hint-{{ name }}">{{ hint }}</p>{% endif %}
+    {% if error %}<p class="field__error" id="error-{{ name }}"><span class="visually-hidden">Error: </span>{{ error }}</p>{% endif %}
+    <input class="input" id="field-{{ name }}" name="{{ name }}" type="{{ type }}"
+      {% if type != 'password' %}value="{{ value }}"{% endif %}
+      {% if required %}required aria-required="true"{% endif %}
+      {% if error %}aria-invalid="true"{% endif %}
+      {% if described %}aria-describedby="{{ described|join(' ') }}"{% endif %}
+      {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}>
+  </div>
+{% endmacro %}
+
+{% macro file(name, label, error = null, hint = null, accept = 'image/png,image/jpeg') %}
+  {% set described = [] %}
+  {% if hint %}{% set described = described|merge(['hint-' ~ name]) %}{% endif %}
+  {% if error %}{% set described = described|merge(['error-' ~ name]) %}{% endif %}
+  <div class="field{% if error %} field--error{% endif %}">
+    <label for="field-{{ name }}">{{ label }}</label>
+    {% if hint %}<p class="hint" id="hint-{{ name }}">{{ hint }}</p>{% endif %}
+    {% if error %}<p class="field__error" id="error-{{ name }}"><span class="visually-hidden">Error: </span>{{ error }}</p>{% endif %}
+    <input class="input" id="field-{{ name }}" name="{{ name }}" type="file" accept="{{ accept }}"
+      {% if error %}aria-invalid="true"{% endif %}
+      {% if described %}aria-describedby="{{ described|join(' ') }}"{% endif %}>
+  </div>
+{% endmacro %}
+
+{% macro textarea(name, label, value = '', error = null, hint = null, rows = 4) %}
+  {% set described = [] %}
+  {% if hint %}{% set described = described|merge(['hint-' ~ name]) %}{% endif %}
+  {% if error %}{% set described = described|merge(['error-' ~ name]) %}{% endif %}
+  <div class="field{% if error %} field--error{% endif %}">
+    <label for="field-{{ name }}">{{ label }}</label>
+    {% if hint %}<p class="hint" id="hint-{{ name }}">{{ hint }}</p>{% endif %}
+    {% if error %}<p class="field__error" id="error-{{ name }}"><span class="visually-hidden">Error: </span>{{ error }}</p>{% endif %}
+    <textarea class="input" id="field-{{ name }}" name="{{ name }}" rows="{{ rows }}"
+      {% if error %}aria-invalid="true"{% endif %}
+      {% if described %}aria-describedby="{{ described|join(' ') }}"{% endif %}>{{ value }}</textarea>
+  </div>
+{% endmacro %}

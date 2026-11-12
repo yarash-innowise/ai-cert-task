@@ -1,0 +1,11 @@
+<li class="card">
+  <h2><a href="/trainer/availability/{{ c.player.profileId }}">{{ c.player.name }}</a>{% if c.player.inactive %} <span class="badge badge--inactive">Inactive</span>{% endif %}</h2>
+  <p class="caption">{{ c.player.isChild ? 'Child' : 'Adult' }}, age {{ c.player.age is null ? 'unknown' : c.player.age }}</p>
+  {% if c.match == 'available' %}<p><span class="badge">Available</span></p>{% elseif c.match == 'no_preference' %}<p><span class="badge">No preference</span></p>{% endif %}
+  <h3>Best Times</h3>
+  {% if c.bestTimes is empty %}
+    <p>No preference given.</p>
+  {% else %}
+    <ul>{% for b in c.bestTimes %}<li>{{ b.label }}</li>{% endfor %}</ul>
+  {% endif %}
+</li>

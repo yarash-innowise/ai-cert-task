@@ -1,0 +1,10 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Remove {{ profile.firstName }} from {{ association.businessName }}?</h1>
+  <p>Upcoming RSVPs of {{ profile.fullName }} with {{ association.businessName }} will be cancelled. Past attendance and history are kept. The Trainer will no longer see {{ profile.firstName }} in their roster.</p>
+  <form method="post" action="/family/children/{{ profile.id }}/trainers/{{ association.organizationId }}/remove">
+    {{ csrf_field() }}
+    <button class="button" type="submit">Yes, remove</button>
+    <a class="button button--secondary" href="/family/children">Keep {{ profile.firstName }} with this Trainer</a>
+  </form>
+{% endblock %}

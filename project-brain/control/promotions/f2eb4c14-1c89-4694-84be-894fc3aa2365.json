@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "fixed in review round R3; verified by full phpunit 997 green, phpstan L8, cs clean\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:31:10.465061+00:00",
+  "destination_memory_id": "MEM-20261112-18d8fa60",
+  "destination_revision": 1,
+  "id": "f2eb4c14-1c89-4694-84be-894fc3aa2365",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:10.468036+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "18d8fa60-a301-4f82-bfdc-19716291dc89",
+      "path": "project-brain/dynamic/findings/18d8fa60-a301-4f82-bfdc-19716291dc89.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-03 [Med] Parent deletion leaves child profiles / child-login users intact",
+  "updated_at": "2026-11-12T22:31:10.502567+00:00"
+}

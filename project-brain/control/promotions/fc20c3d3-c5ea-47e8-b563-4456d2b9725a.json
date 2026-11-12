@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Child purchase/RSVP requests never trust client-sent title, amount or currency; ResolveRequestedEvent looks the event up through the organization-scoped EventCatalog port and refuses unknown or foreign events. Epic-02/05 must supply EventCatalog with prices.\n\n## Sources\n- src/Integration/Application/EventCatalog.php",
+  "created_at": "2026-11-12T22:31:55.675897+00:00",
+  "destination_memory_id": "MEM-20261112-43486df8",
+  "destination_revision": 1,
+  "id": "fc20c3d3-c5ea-47e8-b563-4456d2b9725a",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:55.680924+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "43486df8-1245-495a-90b2-4578d88a78f7",
+      "path": "project-brain/dynamic/decisions/43486df8-1245-495a-90b2-4578d88a78f7.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Approval requests resolve event and price via EventCatalog",
+  "updated_at": "2026-11-12T22:31:55.729604+00:00"
+}

@@ -1,0 +1,14 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Events</h1>
+  {% if flash is defined and flash %}<p class="notice">{{ flash }}</p>{% endif %}
+  {% set menu = context_menu() %}
+  {% if menu.current %}<p class="caption">Showing events of {{ menu.current.label }}</p>{% endif %}
+  {% if events is empty %}
+    <p>No events are available yet. Events will appear here when the events feature is released.</p>
+  {% else %}
+    <ul>
+      {% for event in events %}<li>{{ event.title }} <span class="caption">{{ event.startsAt|date('Y-m-d H:i') }}</span></li>{% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

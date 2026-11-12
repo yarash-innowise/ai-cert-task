@@ -1,0 +1,59 @@
+/* Design tokens extracted from Task/designs/DESIGN_TOKENS.md */
+:root {
+  /* Grayscale base palette */
+  --gray-050: #F3F3F3;
+  --gray-200: #CFCFCF;
+  --gray-500: #868686;
+  --gray-700: #5E5E5E;
+  --gray-800: #363636;
+  --gray-950: #0D0D0D;
+  --white: #FFFFFF;
+  --danger: #B3261E;
+  --danger-soft: #FCEDEC;
+
+  /* Brand (default). Overridden per organization by the branding module. The default is the
+     deep green of the accent example so white text on it keeps a contrast ratio above 4.5:1. */
+  --brand-primary: #006600;
+  --brand-primary-soft: #99FF99;
+  --brand-primary-deep: #001900;
+  --brand-primary-rgb: 0, 102, 0;
+  --on-brand: #FFFFFF;
+
+  /* Typography scale */
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --text-hero-title: 700 30px/38px var(--font-family);
+  --text-section-title: 700 22px/28px var(--font-family);
+  --text-block-title: 700 18px/24px var(--font-family);
+  --text-card-title: 600 16px/22px var(--font-family);
+  --text-body-lg: 400 16px/26px var(--font-family);
+  --text-body: 400 14px/22px var(--font-family);
+  --text-caption: 400 12px/18px var(--font-family);
+  --text-eyebrow: 600 11px/16px var(--font-family);
+
+  /* Spacing */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 40px;
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card-soft: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-card-strong: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-button-primary: 0 10px 30px rgba(var(--brand-primary-rgb), 0.55);
+  --shadow-button-primary-hover: 0 12px 34px rgba(var(--brand-primary-rgb), 0.7);
+
+  /* Controls */
+  --control-height: 44px; /* design input height 40px, raised to the 44px touch-target minimum */
+  --focus-ring: 3px solid var(--gray-950);
+}

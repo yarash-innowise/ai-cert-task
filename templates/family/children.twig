@@ -1,0 +1,67 @@
+{% extends 'layout/base.twig' %}
+{% macro profile_card(item, trainers, errors, error_profile_id, is_child) %}
+  {% import 'components/form.twig' as f %}
+  {% set p = item.profile %}
+  <section class="card" aria-labelledby="profile-{{ p.id }}">
+    <h2 id="profile-{{ p.id }}">{{ p.fullName }} <span class="badge">{{ p.kind.label }}</span></h2>
+    {% if p.photoPath %}<p><img class="avatar" src="/media/profile-thumb/{{ p.id }}" alt="Photo of {{ p.fullName }}" width="64" height="64"></p>{% endif %}
+    <p>Age {{ item.age is null ? 'unknown' : item.age }}{% if p.school %}, {{ p.school }}{% endif %}{% if p.jerseyNumber is not null %}, jersey {{ p.jerseyNumber }}{% endif %}</p>
+    {% if is_child %}<p><a href="/family/children/{{ p.id }}/edit">Edit {{ p.firstName }}</a></p>{% endif %}
+    <p><a href="/family/availability/{{ p.id }}">Weekly availability for {{ p.firstName }}</a></p>
+    <h3>Trainers</h3>
+    {% if item.associations is empty %}
+      <p>Not associated with a Trainer yet.</p>
+    {% else %}
+      <ul>
+        {% for a in item.associations %}
+          <li>{{ a.businessName }} <span class="caption">since {{ a.associatedAt|date('Y-m-d') }}</span>
+            {% if is_child %}<a href="/family/children/{{ p.id }}/trainers/{{ a.organizationId }}/remove">Remove {{ p.firstName }} from {{ a.businessName }}</a>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if is_child %}
+      <h3>Add {{ p.firstName }} to a Trainer</h3>
+      {% set taken = item.associations|map(a => a.organizationId) %}
+      {% set available = trainers|filter(t => t.organizationId not in taken) %}
+      {% if available is not empty %}
+        <form method="post" action="/family/children/{{ p.id }}/trainers/add">
+          {{ csrf_field() }}
+          <div class="field">
+            <label for="trainer-{{ p.id }}">Choose one of your Trainers</label>
+            <select class="input" id="trainer-{{ p.id }}" name="organization_id">
+              {% for t in available %}<option value="{{ t.organizationId }}">{{ t.businessName }}</option>{% endfor %}
+            </select>
+          </div>
+          <button class="button button--secondary" type="submit">Add Trainer</button>
+        </form>
+      {% endif %}
+      <form method="post" action="/family/children/{{ p.id }}/trainers/code" novalidate>
+        {{ csrf_field() }}
+        {% set code_error = (error_profile_id == p.id) ? errors.code|default(null) : null %}
+        {{ f.field('code', 'Or enter a Trainer\'s ShareLink code', '', code_error, 'text', 'The code is the last part of the Trainer\'s link.', false, 'off') }}
+        <button class="button button--secondary" type="submit">Add with link</button>
+      </form>
+      <p><a href="/family/children/{{ p.id }}/settings">Settings for {{ p.firstName }}</a>: token spending {{ p.tokenSpendWithoutApproval ? 'without approval' : 'needs your approval' }}</p>
+      {% if not item.hasLogin %}
+        <p><a href="/family/children/{{ p.id }}/login">Give {{ p.firstName }} their own login</a></p>
+      {% else %}
+        <p class="caption">{{ p.firstName }} has their own login.</p>
+      {% endif %}
+    {% endif %}
+  </section>
+{% endmacro %}
+{% block content %}
+  <h1>Your children</h1>
+  <p><a class="button" href="/family/children/new">Add a child</a>
+    {% if overview.me is null %}<a class="button button--secondary" href="/family/me">Train yourself too</a>{% endif %}</p>
+  {% if overview.me is null and overview.children is empty %}
+    <p>You have not added any children yet.</p>
+  {% endif %}
+  {% if overview.me is not null %}
+    {{ _self.profile_card(overview.me, overview.trainers, errors, error_profile_id, false) }}
+  {% endif %}
+  {% for item in overview.children %}
+    {{ _self.profile_card(item, overview.trainers, errors, error_profile_id, true) }}
+  {% endfor %}
+{% endblock %}

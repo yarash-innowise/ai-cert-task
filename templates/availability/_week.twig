@@ -1,0 +1,30 @@
+{#
+  The seven-day availability fields shared by players, parents and Coaches. Variables: rows (one per day:
+  day, status, slots), errors (map "day-N" or "week" => message). Each day is a fieldset: "No preference",
+  "Not Available" or "Available" with time rows (leave unused rows empty).
+#}
+{% import 'components/form.twig' as f %}
+{{ f.error_summary(errors) }}
+{% for row in rows %}
+  {% set key = 'day-' ~ row.day.value %}
+  <fieldset class="card{% if errors[key] is defined %} field--error{% endif %}" id="field-{{ key }}" tabindex="-1"
+    {% if errors[key] is defined %}aria-describedby="error-{{ key }}"{% endif %}>
+    <legend>{{ row.day.label }}</legend>
+    {% if errors[key] is defined %}<p class="field__error" id="error-{{ key }}"><span class="visually-hidden">Error: </span>{{ errors[key] }}</p>{% endif %}
+    <p>
+      <label><input type="radio" name="days[{{ row.day.value }}][status]" value="none"{% if row.status == 'none' %} checked{% endif %}> No preference</label>
+      <label><input type="radio" name="days[{{ row.day.value }}][status]" value="unavailable"{% if row.status == 'unavailable' %} checked{% endif %}> Not Available</label>
+      <label><input type="radio" name="days[{{ row.day.value }}][status]" value="available"{% if row.status == 'available' %} checked{% endif %}> Available at these times</label>
+    </p>
+    <div class="availability-slots">
+      {% for slot in row.slots %}
+        <p>
+          <label for="slot-{{ row.day.value }}-{{ loop.index0 }}-start"><span class="visually-hidden">{{ row.day.label }} time range {{ loop.index }}, </span>From</label>
+          <input class="input" type="time" id="slot-{{ row.day.value }}-{{ loop.index0 }}-start" name="days[{{ row.day.value }}][slots][{{ loop.index0 }}][start]" value="{{ slot.start }}">
+          <label for="slot-{{ row.day.value }}-{{ loop.index0 }}-end">to</label>
+          <input class="input" type="time" id="slot-{{ row.day.value }}-{{ loop.index0 }}-end" name="days[{{ row.day.value }}][slots][{{ loop.index0 }}][end]" value="{{ slot.end }}">
+        </p>
+      {% endfor %}
+    </div>
+  </fieldset>
+{% endfor %}

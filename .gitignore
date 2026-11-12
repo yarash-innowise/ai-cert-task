@@ -1,0 +1,30 @@
+# Worktrees
+.worktrees/
+.DS_Store
+
+# Personal IDE state
+.idea/
+
+# Python tooling caches
+__pycache__/
+*.py[cod]
+
+# Uncommitted personal agent memory
+memory-bank/local/
+
+# Local chat snapshots kept for an explicit chat merge; never commit or index them
+.context-handoff/
+
+# Auto-rendered Cursor working-memory rule (one turn stale by design; see
+# .cursor/hooks/working-memory-write.sh and docs/TOOL-INTEGRATIONS.md)
+.cursor/rules/working-memory.mdc
+
+# PHP application
+/vendor/
+.env
+.env.*
+!.env.example
+.phpunit.cache/
+.phpunit.result.cache
+.php-cs-fixer.cache
+/var/

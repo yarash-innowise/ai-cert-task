@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Migration down() round trips cannot be run by agents via Bash; write migrations with the Write tool and ask the user to run rollback checks.\n\n## Sources\n- .claude/hooks/bash-validator.sh",
+  "created_at": "2026-11-12T12:04:42.855693+00:00",
+  "destination_memory_id": "MEM-20261112-a6aeb93e",
+  "destination_revision": 1,
+  "id": "79f8f236-f3e7-4108-9e08-7ca3bd92a3c0",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T12:04:42.858032+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "a6aeb93e-3b3e-4f2f-9445-55b9bc0d2b97",
+      "path": "project-brain/dynamic/findings/a6aeb93e-3b3e-4f2f-9445-55b9bc0d2b97.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "bash-validator hook blocks phinx rollback and DROP text",
+  "updated_at": "2026-11-12T12:04:42.868828+00:00"
+}

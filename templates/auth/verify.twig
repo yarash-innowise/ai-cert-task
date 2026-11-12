@@ -1,0 +1,15 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  {% if invalid %}
+    <h1>This link is not valid</h1>
+    <p>The link has expired or has already been used. Verification links expire 24 hours after they are sent.</p>
+    <p><a class="button" href="/verify-email/resend">Send a new verification email</a></p>
+  {% else %}
+    <h1>Confirm your email</h1>
+    <p>Confirm that this email address is yours.</p>
+    <form method="post" action="/verify-email/{{ token|url_encode }}">
+      {{ csrf_field() }}
+      <button class="button" type="submit">Confirm my email</button>
+    </form>
+  {% endif %}
+{% endblock %}

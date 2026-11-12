@@ -1,0 +1,26 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Choose a Trainer</h1>
+  {% if menu.isEmpty %}
+    <p>You are not associated with a Trainer yet. Open a Trainer's link to get started.</p>
+  {% else %}
+    <p>Each Trainer has its own calendar, tokens, content and reservations. Pick the one you want to see; there is no combined view.</p>
+    {% if menu.current %}<p>Now showing: <strong>{{ menu.current.label }}</strong></p>{% endif %}
+    {% for group in menu.groups %}
+      <section aria-labelledby="group-{{ loop.index }}">
+        <h2 id="group-{{ loop.index }}">{{ group.title }}</h2>
+        <ul>
+          {% for item in group.items %}
+            <li>
+              <form method="post" action="/family/context">
+                {{ csrf_field() }}
+                <input type="hidden" name="context" value="{{ item.value }}">
+                <button class="button{% if not item.active %} button--secondary{% endif %}" type="submit"{% if item.active %} aria-current="true"{% endif %}>{{ item.label }}{% if item.active %} (current){% endif %}</button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

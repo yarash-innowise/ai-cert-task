@@ -1,0 +1,41 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Branding</h1>
+  <p>Your logo and primary color appear in the portal of your players, coaches and parents, and nowhere else.</p>
+  {{ f.error_summary(errors) }}
+
+  <section aria-labelledby="preview-title">
+    <h2 id="preview-title">Preview</h2>
+    <style nonce="{{ csp_nonce() }}">.brand-preview { {{ preview_palette.css }} }</style>
+    <div class="brand-preview" id="brand-preview" data-saved-logo="{{ saved.hasLogo ? '/media/logo/' ~ saved.organizationId : '/assets/img/default_logo.svg' }}">
+      <div class="brand-preview__header">
+        <img class="site-header__logo" id="brand-preview-logo" src="{{ preview_logo ?? (saved.hasLogo ? '/media/logo/' ~ saved.organizationId : '/assets/img/default_logo.svg') }}" alt="Logo of {{ saved.businessName }}">
+        <strong>{{ saved.businessName }}</strong>
+      </div>
+      <p><span class="button" role="presentation">Sample button</span> <a href="#brand-preview">Sample link</a></p>
+    </div>
+    {% if preview %}<p class="notice" role="status">This is a preview. Nothing is saved until you choose "Save branding".</p>{% endif %}
+  </section>
+
+  <form method="post" action="/trainer/branding" enctype="multipart/form-data" novalidate>
+    {{ csrf_field() }}
+    {% if staged_logo %}<input type="hidden" name="staged_logo" value="{{ staged_logo }}">{% endif %}
+    <div class="field{% if errors.logo|default(null) %} field--error{% endif %}">
+      <label for="field-logo">Logo</label>
+      <p class="hint" id="hint-logo">PNG, JPG or SVG, up to 2 MB. Logos larger than 200 by 200 pixels are resized automatically.{% if staged_logo %} The previewed logo is kept unless you choose another file.{% endif %}</p>
+      {% if errors.logo|default(null) %}<p class="field__error" id="error-logo"><span class="visually-hidden">Error: </span>{{ errors.logo }}</p>{% endif %}
+      <input class="input" id="field-logo" name="logo" type="file" accept="image/png,image/jpeg,image/svg+xml"
+        aria-describedby="hint-logo{% if errors.logo|default(null) %} error-logo{% endif %}"{% if errors.logo|default(null) %} aria-invalid="true"{% endif %}>
+    </div>
+    {{ f.field('brand_color', 'Primary color', color, errors.brand_color|default(null), 'text', 'A hex code such as ' ~ default_color ~ '. The default is ' ~ default_color ~ '.', true, 'off') }}
+    <button class="button" type="submit" name="action" value="save">Save branding</button>
+    <button class="button button--secondary" type="submit" name="action" value="preview">Preview</button>
+  </form>
+
+  <form method="post" action="/trainer/branding/reset">
+    {{ csrf_field() }}
+    <p><button class="button button--secondary" type="submit">Reset to default</button></p>
+  </form>
+  <script nonce="{{ csp_nonce() }}" src="/assets/js/branding-preview.js" defer></script>
+{% endblock %}

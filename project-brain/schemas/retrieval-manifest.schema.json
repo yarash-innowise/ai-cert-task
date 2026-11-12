@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "id", "created_at", "query", "task_id", "task_revision", "filters",
+    "selected", "excluded", "token_estimates", "provider", "escalation_reason"
+  ],
+  "properties": {
+    "schema_version": {"enum": [1, 2, 3, 4]},
+    "id": {"type": "string", "format": "uuid"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "query": {"type": "string", "minLength": 1},
+    "task_id": {"type": ["string", "null"], "format": "uuid"},
+    "task_revision": {"type": ["integer", "null"], "minimum": 1},
+    "local_episode_count": {"type": "integer", "minimum": 0},
+    "filters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy", "owners", "authority", "freshness", "active_only"],
+      "properties": {
+        "privacy": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "owners": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "authority": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "freshness": {"type": "boolean"},
+        "active_only": {"type": "boolean"}
+      }
+    },
+    "selected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "category", "estimated_tokens", "source_hash"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "category": {"enum": ["policy", "handoff", "durable", "dynamic", "evidence"]},
+          "estimated_tokens": {"type": "integer", "minimum": 1},
+          "source_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "match": {"enum": ["covered", "distinctive", "conflict"]},
+          "selection": {"enum": ["path-link", "source-link", "prompt-link", "touch-link", "source-hint"]},
+          "source_changed": {"type": "boolean"},
+          "score": {"type": "number", "minimum": 0},
+          "rank": {"type": ["integer", "null"], "minimum": 1}
+        }
+      }
+    },
+    "excluded": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "token_estimates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy", "handoff", "durable", "dynamic", "evidence", "total", "target", "hard"
+      ],
+      "properties": {
+        "policy": {"type": "integer", "minimum": 0},
+        "handoff": {"type": "integer", "minimum": 0},
+        "durable": {"type": "integer", "minimum": 0},
+        "dynamic": {"type": "integer", "minimum": 0},
+        "evidence": {"type": "integer", "minimum": 0},
+        "local_episodes": {"type": "integer", "minimum": 0},
+        "total": {"type": "integer", "minimum": 0, "maximum": 12000},
+        "target": {"const": 8000},
+        "hard": {"const": 12000}
+      }
+    },
+    "provider": {"type": "string", "minLength": 1},
+    "source_hints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile", "state", "supplied", "admitted", "delivered"],
+      "properties": {
+        "profile": {"type": "string", "const": "source-hints-v1", "enum": ["source-hints-v1"]},
+        "state": {"type": "string", "enum": ["ready", "invalid", "unsupported"]},
+        "supplied": {"type": "integer", "minimum": 0, "maximum": 8},
+        "admitted": {"type": "integer", "minimum": 0, "maximum": 8},
+        "delivered": {"type": "integer", "minimum": 0, "maximum": 8}
+      }
+    },
+    "source_links": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anchors", "candidates", "delivered"],
+      "properties": {
+        "anchors": {"type": "integer", "minimum": 0, "maximum": 2},
+        "candidates": {"type": "integer", "minimum": 0, "maximum": 3},
+        "delivered": {"type": "integer", "minimum": 0, "maximum": 3}
+      }
+    },
+    "query_source": {"enum": ["prompt", "task", "task-id", "explicit", "continuation"]},
+    "host": {"enum": ["cli", "claude", "codex", "cursor"]},
+    "entry_point": {"enum": ["context", "retrieve", "refresh", "hook-context"]},
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "mode", "reason", "signals"],
+      "properties": {
+        "decision": {"enum": ["retrieve", "skip"]},
+        "mode": {"enum": ["off", "shadow", "enforce"]},
+        "reason": {"type": "string", "minLength": 1},
+        "signals": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "informative_terms", "distinctive_matches", "top_score", "no_match",
+            "query_unchanged_from_previous_turn", "selection_identical_to_previous_turn"
+          ],
+          "properties": {
+            "informative_terms": {"type": "integer", "minimum": 0},
+            "distinctive_matches": {"type": "integer", "minimum": 0},
+            "top_score": {"type": ["number", "null"]},
+            "no_match": {"type": "array", "items": {"type": "string"}},
+            "query_unchanged_from_previous_turn": {"type": "boolean"},
+            "selection_identical_to_previous_turn": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "phase_seconds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stat", "index", "retrieval"],
+      "properties": {
+        "stat": {"type": ["number", "null"], "minimum": 0},
+        "index": {"type": ["number", "null"], "minimum": 0},
+        "retrieval": {"type": "number", "minimum": 0}
+      }
+    },
+    "escalation_reason": {"type": ["string", "null"]}
+  }
+}

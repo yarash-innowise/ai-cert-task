@@ -1,0 +1,19 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Edit {{ profile.firstName }}</h1>
+  {{ f.error_summary(errors) }}
+  {% if profile.photoPath %}
+    <p><img class="avatar" src="/media/profile-thumb/{{ profile.id }}" alt="Current photo of {{ profile.fullName }}" width="128" height="128"></p>
+  {% endif %}
+  <form method="post" action="/family/children/{{ profile.id }}/edit" enctype="multipart/form-data" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('first_name', 'First name', old.first_name|default(''), errors.first_name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('last_name', 'Last name', old.last_name|default(''), errors.last_name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('school', 'School (optional)', old.school|default(''), errors.school|default(null), 'text', null, false, 'off') }}
+    {{ f.field('jersey_number', 'Jersey number (optional)', old.jersey_number|default(''), errors.jersey_number|default(null), 'text', 'A whole number from 0 to 999.', false, 'off') }}
+    {{ f.file('photo', profile.photoPath ? 'Replace photo (optional)' : 'Photo (optional)', errors.photo|default(null), 'PNG or JPG, up to 2 MB. It is shown as a small thumbnail.') }}
+    <button class="button" type="submit">Save changes</button>
+    <a class="button button--secondary" href="/family/children">Cancel</a>
+  </form>
+{% endblock %}

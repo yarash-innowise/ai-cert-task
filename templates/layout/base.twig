@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ page_title|default('Page') }}{% endblock %} - {{ app_name }}</title>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+  {% set brand = brand() %}
+  {% if brand and brand.color %}<style nonce="{{ csp_nonce() }}">:root { {{ brand.palette.css }} }</style>{% endif %}
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  {% include 'layout/_impersonation-banner.twig' %}
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="site-header__brand" href="/">{% if brand %}<img class="site-header__logo" src="{{ brand.hasLogo ? '/media/logo/' ~ brand.organizationId : '/assets/img/default_logo.svg' }}" alt="Logo of {{ brand.businessName }}">{% endif %}{{ app_name }}</a>
+      {% block nav %}
+        {% set signed_in = current_user() %}
+        {% if signed_in %}
+          <nav class="site-header__nav" aria-label="Account">
+            {% include 'layout/_context-selector.twig' %}
+            {% if signed_in.role.value == 'trainer' %}
+              <a href="/trainer/players">Players</a>
+              <a href="/trainer/coaches">Coaches</a>
+              <a href="/trainer/availability">Availability</a>
+              <a href="/trainer/assignments">Assignments</a>
+              <a href="/trainer/links">Player link</a>
+            {% endif %}
+            {% if signed_in.role.value == 'coach' %}
+              <a href="/coach">Assignments</a>
+              <a href="/coach/schedule">My Times</a>
+            {% endif %}
+            {% if signed_in.role.value == 'player' and not signed_in.isChildLogin %}
+              <a href="/family/availability">Availability</a>
+            {% endif %}
+            <a href="/profile">Profile</a>
+            <span class="site-header__user">{{ signed_in.name }} ({{ signed_in.role.label }})</span>
+            <form method="post" action="/logout">
+              {{ csrf_field() }}
+              <button class="button button--secondary" type="submit">Sign out</button>
+            </form>
+          </nav>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </header>
+  <div class="container">
+    <div class="status-region" role="status" aria-live="polite" aria-atomic="true">{% if flash is defined and flash %}<p class="notice">{{ flash }}</p>{% endif %}</div>
+    <main id="main" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  <footer class="site-footer" role="contentinfo">
+    <div class="container"><p class="caption">&copy; {{ app_name }}</p></div>
+  </footer>
+  <script nonce="{{ csp_nonce() }}" src="/assets/js/app.js" defer></script>
+</body>
+</html>

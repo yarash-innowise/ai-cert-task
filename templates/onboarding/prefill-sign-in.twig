@@ -1,0 +1,6 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Please sign in</h1>
+  <p>The email address from your {{ business_name }} form already has an account. Sign in to connect it with {{ business_name }}; no second account is created.</p>
+  <p><a class="button" href="/login?return_to={{ ('/register/prefill/' ~ token)|url_encode }}">Sign in</a></p>
+{% endblock %}

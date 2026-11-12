@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "fixed in review round R3; verified by full phpunit 997 green, phpstan L8, cs clean\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:31:11.593414+00:00",
+  "destination_memory_id": "MEM-20261112-939b6ade",
+  "destination_revision": 1,
+  "id": "6d948456-2692-48d5-818f-6968f50ca513",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:11.595662+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "939b6ade-5899-4450-8d4e-c1ce66ff0273",
+      "path": "project-brain/dynamic/findings/939b6ade-5899-4450-8d4e-c1ce66ff0273.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-02 [High] GDPR delete leaves PII in `outbox.payload`, `coach_invitations` (email/name/message), `notifications`, `registration_prefills.data`, user-authored free-text notes; `login_attempts`",
+  "updated_at": "2026-11-12T22:31:11.630942+00:00"
+}

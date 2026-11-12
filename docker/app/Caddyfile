@@ -1,0 +1,14 @@
+{
+	frankenphp
+	order php_server before file_server
+}
+
+https://localhost {
+	root * /app/public
+	encode zstd gzip
+	php_server
+}
+
+http://localhost {
+	redir https://localhost{uri}
+}

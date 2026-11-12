@@ -1,0 +1,8 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}Confirm your email address{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">Confirm your email address</h1>
+  <p>Hello {{ name }},</p>
+  <p>Please confirm that this email address is yours. The link expires 24 hours after it was sent.</p>
+  <p><a href="{{ link }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">Confirm email</a></p>
+{% endblock %}

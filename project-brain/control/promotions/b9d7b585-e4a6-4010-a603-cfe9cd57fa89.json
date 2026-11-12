@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "Host has no PHP; checks run as docker compose run --rm app vendor/bin/{phpunit,phpstan,php-cs-fixer}; host ports 80/443/8025 are taken so app uses 18443/18080 and mailpit UI 8125.\n\n## Sources\n- docker-compose.yml\n- tasks/TASK-001/writing-plans-plan.md",
+  "created_at": "2026-11-12T11:54:25.249982+00:00",
+  "destination_memory_id": "MEM-20261112-8174bfd1",
+  "destination_revision": 1,
+  "id": "b9d7b585-e4a6-4010-a603-cfe9cd57fa89",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T11:54:25.252037+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "8174bfd1-7d7d-4511-bcf6-d62452209503",
+      "path": "project-brain/dynamic/findings/8174bfd1-7d7d-4511-bcf6-d62452209503.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "Run all PHP tooling through docker compose app service",
+  "updated_at": "2026-11-12T11:54:25.260720+00:00"
+}

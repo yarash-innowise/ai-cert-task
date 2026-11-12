@@ -1,0 +1,14 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Settings for {{ profile.firstName }}</h1>
+  <form method="post" action="/family/children/{{ profile.id }}/settings">
+    {{ csrf_field() }}
+    <p class="hint" id="hint-token-spend">When this is off, every token spend by {{ profile.firstName }} needs your approval, like a USD purchase. When it is on, {{ profile.firstName }} can spend tokens without asking, and you get a notice by email and in the app. You can change this at any time; requests that are already waiting keep the rule they were made under.</p>
+    <p>
+      <input type="hidden" name="token_spend_without_approval" value="0">
+      <label><input type="checkbox" name="token_spend_without_approval" value="1" aria-describedby="hint-token-spend"{% if profile.tokenSpendWithoutApproval %} checked{% endif %}> Allow token spending without approval</label>
+    </p>
+    <button class="button" type="submit">Save</button>
+    <a class="button button--secondary" href="/family/children">Back</a>
+  </form>
+{% endblock %}

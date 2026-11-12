@@ -1,0 +1,29 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Player availability</h1>
+  <p>What your players told you about their week. This is advice for planning; it never blocks scheduling, and players who have not set anything are always shown.</p>
+  {{ f.error_summary(errors) }}
+  <form method="get" action="/trainer/availability" class="card" novalidate>
+    <div class="field{% if errors.day is defined %} field--error{% endif %}">
+      <label for="field-day">Day</label>
+      {% if errors.day is defined %}<p class="field__error" id="error-day">{{ errors.day }}</p>{% endif %}
+      <select class="input" id="field-day" name="day">
+        <option value="">Any day</option>
+        {% for d in days %}<option value="{{ d.value }}"{% if filter_day is same as(d.value) %} selected{% endif %}>{{ d.label }}</option>{% endfor %}
+      </select>
+    </div>
+    {{ f.field('time', 'Time (optional)', filter_time, errors.time|default(null), 'time', 'Players whose saved times include this moment are listed first.') }}
+    <button class="button" type="submit">Filter</button>
+    {% if filtered %}<a class="button button--secondary" href="/trainer/availability">Clear filter</a>{% endif %}
+  </form>
+  {% if cards is empty %}
+    <p>{% if filtered %}No players match this day and time.{% else %}No players yet. Share your <a href="/trainer/links">player link</a> to get started.{% endif %}</p>
+  {% else %}
+    <ul class="stack">
+      {% for c in cards %}
+        {% include 'trainer/_player-availability-card.twig' %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

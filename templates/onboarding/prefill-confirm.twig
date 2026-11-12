@@ -1,0 +1,9 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Join {{ business_name }}</h1>
+  <p>Connect your account with {{ business_name }}. No second account is created.</p>
+  <form method="post" action="/register/prefill/{{ token|url_encode }}/attach" novalidate>
+    {{ csrf_field() }}
+    <button type="submit" class="button">Join {{ business_name }}</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "fixed in review round R4; verified by full phpunit 997 green, phpstan L8, cs clean\n\n## Sources\n- tasks/TASK-001/code-reviewer-findings.md",
+  "created_at": "2026-11-12T22:31:11.132893+00:00",
+  "destination_memory_id": "MEM-20261112-82d97958",
+  "destination_revision": 1,
+  "id": "7a889a7e-bd76-456a-ae15-50e569b7a6f6",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T22:31:11.136169+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "82d97958-26e3-4df9-869c-88e629b4659f",
+      "path": "project-brain/dynamic/findings/82d97958-26e3-4df9-869c-88e629b4659f.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "F-09 [Med] Coach memberships never end (deleted/deactivated Trainer keeps coach \"active\" -> AC-59 dead end); no reassign; accept vs delete race (no org lock)",
+  "updated_at": "2026-11-12T22:31:11.180972+00:00"
+}

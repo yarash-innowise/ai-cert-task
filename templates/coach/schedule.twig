@@ -1,0 +1,11 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>My Times</h1>
+  <p>Your recurring weekly schedule. Add several time ranges to a day if you need to. Trainers see a warning when they assign you outside these times; changing them later does not change assignments you already have.</p>
+  <form method="post" action="/coach/schedule" novalidate>
+    {{ csrf_field() }}
+    {% include 'availability/_week.twig' %}
+    <button class="button" type="submit">Save schedule</button>
+    <a class="button button--secondary" href="/coach">Back</a>
+  </form>
+{% endblock %}

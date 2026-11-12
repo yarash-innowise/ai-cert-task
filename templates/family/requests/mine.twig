@@ -1,0 +1,27 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>My requests</h1>
+  <p>Purchases, RSVPs and cancellations need your parent's approval. Your parent has 48 hours to answer.</p>
+  {% if requests is empty %}
+    <p>You have not asked for anything yet.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="table">
+        <caption class="visually-hidden">Your requests and their status</caption>
+        <thead><tr><th scope="col">What</th><th scope="col">Event</th><th scope="col">Amount</th><th scope="col">Asked</th><th scope="col">Status</th><th scope="col">Parent's note</th></tr></thead>
+        <tbody>
+          {% for r in requests %}
+            <tr>
+              <th scope="row">{{ r.kind.label|capitalize }}</th>
+              <td>{{ r.eventLabel }}</td>
+              <td>{{ r.amountLabel ?? '-' }}</td>
+              <td>{{ r.createdAt|date('Y-m-d H:i', 'UTC') }} UTC</td>
+              <td><span class="badge">{{ r.status.childLabel }}</span></td>
+              <td>{{ r.parentNote ?? '' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

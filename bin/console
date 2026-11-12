@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use App\Shared\Console\Command;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$containerFactory = require __DIR__ . '/../config/container.php';
+$container = $containerFactory();
+
+/** @var array<string, Command> $commands */
+$commands = [];
+/** @var list<class-string<Command>> $classes */
+$classes = require __DIR__ . '/../config/commands.php';
+foreach ($classes as $class) {
+    $command = $container->get($class);
+    assert($command instanceof Command);
+    $commands[$command->name()] = $command;
+}
+ksort($commands);
+
+$name = $argv[1] ?? 'list';
+
+if ($name === 'list') {
+    fwrite(STDOUT, "Available commands:\n");
+    foreach ($commands as $commandName => $command) {
+        fwrite(STDOUT, sprintf("  %-28s %s\n", $commandName, $command->description()));
+    }
+    exit(0);
+}
+
+if (!isset($commands[$name])) {
+    fwrite(STDERR, "Unknown command: {$name}\n");
+    exit(1);
+}
+
+exit($commands[$name]->run(array_slice($argv, 2)));

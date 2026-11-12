@@ -1,0 +1,12 @@
+Hello {{ recipient_name }},
+
+{{ headline }}
+
+{{ detail }}
+
+Event: {{ event_label }}
+Trainer: {{ business_name }}
+{% if amount_label %}Amount: {{ amount_label }}
+{% endif %}{% if parent_note %}Note from the parent: {{ parent_note }}
+{% endif %}
+View request: {{ view_url }}

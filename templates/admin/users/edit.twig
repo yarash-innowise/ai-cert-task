@@ -1,0 +1,25 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Edit user</h1>
+  {{ f.error_summary(errors) }}
+  {% if form_error %}
+    <div class="error-summary" id="error-summary" role="alert" tabindex="-1">
+      <p class="error-summary__title">{{ form_error }}</p>
+    </div>
+  {% endif %}
+  <dl class="facts">
+    <dt>Role</dt><dd>{{ subject.role.label }}</dd>
+    <dt>Status</dt><dd>{{ subject.status.label }}</dd>
+    {% if subject.createdAt %}<dt>Account created</dt><dd>{{ subject.createdAt|date('Y-m-d') }}</dd>{% endif %}
+  </dl>
+  <form method="post" action="/admin/users/{{ subject.id }}/edit" novalidate>
+    {{ csrf_field() }}
+    <input type="hidden" name="version" value="{{ old.version|default(subject.version) }}">
+    {{ f.field('name', 'Name', old.name|default(''), errors.name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('email', 'Email', old.email|default(''), errors.email|default(null), 'email', 'Changing the email changes how this person signs in.', true, 'off') }}
+    {{ f.field('phone', 'Phone', old.phone|default(''), errors.phone|default(null), 'tel', 'Include the country code, for example +1 415 555 2671.', false, 'off') }}
+    <button class="button" type="submit">Save changes</button>
+    <a class="button button--secondary" href="/admin/users">Cancel</a>
+  </form>
+{% endblock %}

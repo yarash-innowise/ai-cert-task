@@ -1,0 +1,27 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Player link</h1>
+  <p>Share this link with players and parents. Anyone who opens it can register with you. The link has no expiry and can be used any number of times.</p>
+  {% if link is null %}
+    <p>You do not have an active player link.</p>
+    <form method="post" action="/trainer/links/generate">
+      {{ csrf_field() }}
+      <button class="button" type="submit">Create player link</button>
+    </form>
+  {% else %}
+    <div class="field">
+      <label for="link-url">Your player link</label>
+      <input class="input" id="link-url" type="text" readonly value="{{ url }}">
+    </div>
+    <p class="caption">Used {{ link.useCount }} time{{ link.useCount == 1 ? '' : 's' }}{% if link.lastUsedAt %}; last used {{ link.lastUsedAt|date('Y-m-d H:i') }} UTC{% endif %}.</p>
+    <form method="post" action="/trainer/links/regenerate">
+      {{ csrf_field() }}
+      <p class="hint">Creating a new link turns the current one off immediately.</p>
+      <button class="button button--secondary" type="submit">Create a new link</button>
+    </form>
+    <form method="post" action="/trainer/links/deactivate">
+      {{ csrf_field() }}
+      <button class="button button--secondary" type="submit">Turn the link off</button>
+    </form>
+  {% endif %}
+{% endblock %}

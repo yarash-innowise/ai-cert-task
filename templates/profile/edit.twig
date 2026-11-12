@@ -1,0 +1,65 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Profile</h1>
+  {{ f.error_summary(errors) }}
+
+  <h2>Your account</h2>
+  <dl class="facts">
+    <dt>Email</dt><dd>{{ profile.email }}</dd>
+    <dt>Role</dt><dd>{{ profile.role.label }}</dd>
+    {% if profile.showSkillLevel %}<dt>Skill level</dt><dd>{{ profile.skillLevel ? profile.skillLevel|capitalize : 'Not set yet. Your Trainer sets it.' }}</dd>{% endif %}
+    {% if profile.createdAt %}<dt>Account created</dt><dd>{{ profile.createdAt|date('Y-m-d') }}</dd>{% endif %}
+  </dl>
+  <p class="caption">Email, role, skill level and the creation date cannot be changed here. To change your email, ask a Super Admin.</p>
+
+  {% if profile.thumbnailUrl %}
+    <p><img class="avatar" src="{{ profile.thumbnailUrl }}" alt="Your current photo" width="128" height="128"></p>
+  {% endif %}
+
+  <form method="post" action="/profile" enctype="multipart/form-data" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('name', 'Name', old.name|default(''), errors.name|default(null), 'text', null, true, 'name') }}
+    {{ f.field('phone', 'Phone', old.phone|default(''), errors.phone|default(null), 'tel', 'Include the country code, for example +1 415 555 2671.', false, 'tel') }}
+    {{ f.file('photo', profile.thumbnailUrl ? 'Replace photo' : 'Photo', errors.photo|default(null), 'PNG or JPG, up to 2 MB. It is shown as a small thumbnail.') }}
+
+    {% if profile.has('player') %}
+      <h2>Player details</h2>
+      {{ f.field('school', 'School', old.school|default(''), errors.school|default(null), 'text', null, false, 'off') }}
+      {{ f.field('jersey_number', 'Jersey number', old.jersey_number|default(''), errors.jersey_number|default(null), 'text', 'A whole number from 0 to 999.', false, 'off') }}
+    {% endif %}
+
+    {% if profile.has('parent') %}
+      <h2>Parent details</h2>
+      {{ f.textarea('emergency_contact', 'Emergency contact', old.emergency_contact|default(''), errors.emergency_contact|default(null), 'Name and phone number of someone to call in an emergency.', 3) }}
+    {% endif %}
+
+    {% if profile.has('coach') %}
+      <h2>Coach profile</h2>
+      {{ f.textarea('bio', 'Bio', old.bio|default(''), errors.bio|default(null), null, 5) }}
+      {{ f.textarea('credentials', 'Credentials', old.credentials|default(''), errors.credentials|default(null), null, 3) }}
+      {{ f.textarea('certifications', 'Certifications', old.certifications|default(''), errors.certifications|default(null), 'One certification per line.', 4) }}
+      <div class="field">
+        <label for="field-is_public">
+          <input id="field-is_public" name="is_public" type="checkbox" value="1"{% if old.is_public|default(false) %} checked{% endif %}>
+          Show my profile to my Trainer's players and parents
+        </label>
+        <p class="hint">Your Trainer always sees it. When this is off, nobody else can open it.</p>
+      </div>
+      <p><a href="/coaches/{{ profile.userId }}">See how your public profile looks</a></p>
+    {% endif %}
+
+    {% if profile.has('trainer') %}
+      <h2>Organization</h2>
+      {{ f.field('business_name', 'Business name', old.business_name|default(''), errors.business_name|default(null), 'text', null, true, 'organization') }}
+      {{ f.textarea('details', 'Organization details', old.details|default(''), errors.details|default(null), 'For example your address, website or what you offer.', 4) }}
+    {% endif %}
+
+    {% if profile.has('admin') %}
+      <h2>Admin settings</h2>
+      {{ f.textarea('admin_settings', 'Admin settings', old.admin_settings|default(''), errors.admin_settings|default(null), 'Notes and preferences for your Super Admin account.', 4) }}
+    {% endif %}
+
+    <button class="button" type="submit">Save profile</button>
+  </form>
+{% endblock %}

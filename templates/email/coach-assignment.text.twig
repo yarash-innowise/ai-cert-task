@@ -1,0 +1,7 @@
+Hello {{ recipient_name }},
+
+{{ business_name }} assigned you to {{ event_ref }} on {{ event_when }}.
+{% if outside_schedule %}
+This is outside the times in your schedule. You can still accept it, or ask for a change.
+{% endif %}
+View assignment: {{ view_url }}

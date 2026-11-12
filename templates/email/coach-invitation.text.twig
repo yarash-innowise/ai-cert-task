@@ -1,0 +1,9 @@
+Hello{% if coach_name %} {{ coach_name }}{% endif %},
+
+{{ business_name }} invited you to join their team as a Coach.
+{% if message %}
+{{ message }}
+{% endif %}
+Accept the invitation: {{ accept_url }}
+
+The link works once and is valid until {{ expires_on }} (7 days from now).

@@ -1,0 +1,23 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>{{ profile.firstName }} was added</h1>
+  <form method="post" action="/family/children/{{ profile.id }}/trainers">
+    {{ csrf_field() }}
+    {% if single %}
+      <p>Will {{ profile.firstName }} also train with {{ options[0].businessName }}?</p>
+      <button class="button" type="submit" name="answer" value="yes">Yes</button>
+      <button class="button button--secondary" type="submit" name="answer" value="no">No</button>
+    {% else %}
+      <fieldset>
+        <legend>Which of your Trainers will {{ profile.firstName }} train with?</legend>
+        {% for o in options %}
+          <div class="field">
+            <label><input type="checkbox" name="organization_ids[]" value="{{ o.organizationId }}"> {{ o.businessName }}</label>
+          </div>
+        {% endfor %}
+      </fieldset>
+      <button class="button" type="submit">Save</button>
+      <p class="hint">Tick none to skip; you can add Trainers later.</p>
+    {% endif %}
+  </form>
+{% endblock %}

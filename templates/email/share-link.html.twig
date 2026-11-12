@@ -1,0 +1,9 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}Join {{ business_name }}{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">Join {{ business_name }}</h1>
+  <p>Hello{% if name %} {{ name }}{% endif %},</p>
+  <p>{{ business_name }} invites you to register as a player. Use the link below whenever you are ready.</p>
+  <p><a href="{{ link }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">Register with {{ business_name }}</a></p>
+  <p>If the button does not work, copy this address into your browser: {{ link }}</p>
+{% endblock %}

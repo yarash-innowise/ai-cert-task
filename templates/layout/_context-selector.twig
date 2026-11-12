@@ -1,0 +1,18 @@
+{# Trainer context selector for players, parents and child logins. A native select + submit: keyboard reachable, no JavaScript needed. #}
+{% set menu = context_menu() %}
+{% if not menu.isEmpty %}
+  <form class="context-selector" method="post" action="/family/context" aria-label="Trainer context">
+    {{ csrf_field() }}
+    <label for="context-select">Training with</label>
+    <select class="input" id="context-select" name="context">
+      {% for group in menu.groups %}
+        <optgroup label="{{ group.title }}">
+          {% for item in group.items %}
+            <option value="{{ item.value }}"{% if item.active %} selected aria-current="true"{% endif %}>{{ item.label }}</option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+    <button class="button button--secondary" type="submit">Switch</button>
+  </form>
+{% endif %}

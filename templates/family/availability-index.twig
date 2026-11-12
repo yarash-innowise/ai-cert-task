@@ -1,0 +1,15 @@
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h1>Availability</h1>
+  <p>Each player has their own weekly availability. Pick whose week to edit.</p>
+  {% if overview.me is null and overview.children is empty %}
+    <p>There is no player profile yet. <a href="/family/children/new">Add a child</a> or <a href="/family/me">train yourself too</a>.</p>
+  {% else %}
+    <ul>
+      {% if overview.me is not null %}<li><a href="/family/availability/{{ overview.me.profile.id }}">{{ overview.me.profile.fullName }} (you)</a></li>{% endif %}
+      {% for item in overview.children %}
+        <li><a href="/family/availability/{{ item.profile.id }}">{{ item.profile.fullName }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

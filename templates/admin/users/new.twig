@@ -1,0 +1,16 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Create a Trainer</h1>
+  <p>The Trainer receives an email with a link to choose a password. All fields are required.</p>
+  {{ f.error_summary(errors) }}
+  <form method="post" action="/admin/users/new" novalidate>
+    {{ csrf_field() }}
+    {{ f.field('business_name', 'Business name', old.business_name|default(''), errors.business_name|default(null), 'text', null, true, 'organization') }}
+    {{ f.field('trainer_name', 'Trainer name', old.trainer_name|default(''), errors.trainer_name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('email', 'Email', old.email|default(''), errors.email|default(null), 'email', null, true, 'off') }}
+    {{ f.field('phone', 'Phone', old.phone|default(''), errors.phone|default(null), 'tel', 'Include the country code, for example +1 415 555 2671.', true, 'off') }}
+    <button class="button" type="submit">Create Trainer</button>
+    <a class="button button--secondary" href="/admin/users">Cancel</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Register with {{ business_name }}</h1>
+  <p>Create your account to train with {{ business_name }}. Already have an account? <a href="/login?return_to={{ ('/join/' ~ code)|url_encode }}">Sign in</a>.</p>
+  {{ f.error_summary(errors) }}
+  <form method="post" action="/join/{{ code|url_encode }}/register" novalidate>
+    {{ csrf_field() }}
+    <h2>Your account</h2>
+    {{ f.field('name', 'Your name', old.name|default(''), errors.name|default(null), 'text', null, true, 'name') }}
+    {{ f.field('email', 'Email', old.email|default(''), errors.email|default(null), 'email', null, true, 'email') }}
+    {{ f.field('password', 'Password', '', errors.password|default(null), 'password', '10 to 128 characters.', true, 'new-password') }}
+    {{ f.field('phone', 'Phone (parent or account holder)', old.phone|default(''), errors.phone|default(null), 'tel', 'For example +1 415 555 2671.', true, 'tel') }}
+
+    <h2>The player</h2>
+    <fieldset class="field{% if errors.player_for|default(null) %} field--error{% endif %}">
+      <legend>Who will train? <span class="field__required">(required)</span></legend>
+      {% if errors.player_for|default(null) %}<p class="field__error" id="error-player_for"><span class="visually-hidden">Error: </span>{{ errors.player_for }}</p>{% endif %}
+      <p><label><input type="radio" id="field-player_for" name="player_for" value="me"{% if old.player_for|default('') == 'me' %} checked{% endif %}> Me (18 or older)</label></p>
+      <p><label><input type="radio" name="player_for" value="child"{% if old.player_for|default('') == 'child' %} checked{% endif %}> My child (under 18)</label></p>
+    </fieldset>
+    {{ f.field('player_name', "Player's name", old.player_name|default(''), errors.player_name|default(null), 'text', 'Leave empty when you are the player.', false, 'off') }}
+    {{ f.field('birth_date', "Player's birth date", old.birth_date|default(''), errors.birth_date|default(null), 'date', 'Age is worked out from the birth date.', true, 'off') }}
+    <div class="field{% if errors.gender|default(null) %} field--error{% endif %}">
+      <label for="field-gender">Gender <span class="field__required">(required)</span></label>
+      {% if errors.gender|default(null) %}<p class="field__error" id="error-gender"><span class="visually-hidden">Error: </span>{{ errors.gender }}</p>{% endif %}
+      <select class="input" id="field-gender" name="gender" required aria-required="true"{% if errors.gender|default(null) %} aria-invalid="true" aria-describedby="error-gender"{% endif %}>
+        <option value="">Choose</option>
+        <option value="female"{% if old.gender|default('') == 'female' %} selected{% endif %}>Female</option>
+        <option value="male"{% if old.gender|default('') == 'male' %} selected{% endif %}>Male</option>
+        <option value="other"{% if old.gender|default('') == 'other' %} selected{% endif %}>Other</option>
+      </select>
+    </div>
+    <button class="button" type="submit">Register</button>
+  </form>
+{% endblock %}

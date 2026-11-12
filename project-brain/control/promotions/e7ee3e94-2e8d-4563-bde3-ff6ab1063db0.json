@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "The file-naming hook rejects specs/<feature>-spec.md; SDD artifacts are named requirements-analyst-<slug>-spec.md and architect-<slug>-architecture.md.\n\n## Sources\n- AGENTS.md\n- specs/MANIFEST.md",
+  "created_at": "2026-11-12T11:38:21.253841+00:00",
+  "destination_memory_id": "MEM-20261112-21462622",
+  "destination_revision": 1,
+  "id": "e7ee3e94-2e8d-4563-bde3-ff6ab1063db0",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T11:38:21.256066+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "21462622-e53c-4a71-a4d4-e8e6f00cc371",
+      "path": "project-brain/dynamic/decisions/21462622-e53c-4a71-a4d4-e8e6f00cc371.md",
+      "revision": 2,
+      "type": "decision"
+    }
+  ],
+  "status": "applied",
+  "title": "Spec files need skill-name prefix even in SDD",
+  "updated_at": "2026-11-12T11:38:21.263948+00:00"
+}

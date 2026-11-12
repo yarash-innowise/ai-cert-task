@@ -1,0 +1,10 @@
+{% extends 'email/_base.twig' %}
+{% block subject %}{{ business_name }} invited you to join as a Coach{% endblock %}
+{% block content %}
+  <h1 style="font-size: 20px;">{{ business_name }} invited you to join as a Coach</h1>
+  <p>Hello{% if coach_name %} {{ coach_name }}{% endif %},</p>
+  <p>{{ business_name }} invited you to join their team as a Coach.</p>
+  {% if message %}<p style="border-left: 3px solid #D9D9D9; padding-left: 12px;">{{ message }}</p>{% endif %}
+  <p><a href="{{ accept_url }}" style="display: inline-block; padding: 12px 24px; background: #0D0D0D; color: #ffffff; border-radius: 8px; text-decoration: none;">Accept invitation</a></p>
+  <p>The link works once and is valid until {{ expires_on }} (7 days from now).</p>
+{% endblock %}

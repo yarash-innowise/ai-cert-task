@@ -1,0 +1,26 @@
+{
+  "conflicts": [],
+  "content": "SecurityHeadersMiddleware is outermost and ErrorHandlerMiddleware inside it so 403/404/500 pages also carry CSP/HSTS; keep this order when adding middleware.\n\n## Sources\n- config/middleware.php",
+  "created_at": "2026-11-12T12:04:42.841016+00:00",
+  "destination_memory_id": "MEM-20261112-21912a37",
+  "destination_revision": 1,
+  "id": "cdbc0cbe-dacc-4a42-9254-559fc11a09a8",
+  "outcome": "approved-without-review",
+  "proposer": "local",
+  "review_mode": "automatic",
+  "reviewed_at": "2026-11-12T12:04:42.843698+00:00",
+  "reviewer": null,
+  "revision": 3,
+  "schema_version": 1,
+  "source_records": [
+    {
+      "id": "21912a37-df12-4f0c-9fa8-4df62bd859fe",
+      "path": "project-brain/dynamic/findings/21912a37-df12-4f0c-9fa8-4df62bd859fe.md",
+      "revision": 2,
+      "type": "finding"
+    }
+  ],
+  "status": "applied",
+  "title": "Security headers middleware must wrap the error handler",
+  "updated_at": "2026-11-12T12:04:42.853310+00:00"
+}

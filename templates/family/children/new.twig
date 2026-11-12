@@ -1,0 +1,32 @@
+{% extends 'layout/base.twig' %}
+{% import 'components/form.twig' as f %}
+{% block content %}
+  <h1>Add a child</h1>
+  {{ f.error_summary(errors) }}
+  {% if similar is defined and similar %}
+    <div class="notice" role="alert">
+      <p><strong>{{ similar.existing.fullName }}</strong> (age {{ similar.existingAge is null ? 'unknown' : similar.existingAge }}) is already on your list and looks similar. Is this a different child?</p>
+    </div>
+  {% endif %}
+  <form method="post" action="/family/children/new" enctype="multipart/form-data" novalidate>
+    {{ csrf_field() }}
+    {% if similar is defined and similar %}<input type="hidden" name="confirm_similar" value="1">{% endif %}
+    {{ f.field('first_name', 'First name', old.first_name|default(''), errors.first_name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('last_name', 'Last name', old.last_name|default(''), errors.last_name|default(null), 'text', null, true, 'off') }}
+    {{ f.field('birth_date', 'Birth date', old.birth_date|default(''), errors.birth_date|default(null), 'date', 'Age is worked out from the birth date. Children must be 0 to 17 years old.', true, 'off') }}
+    <div class="field{% if errors.gender|default(null) %} field--error{% endif %}">
+      <label for="field-gender">Gender <span class="field__required">(required)</span></label>
+      {% if errors.gender|default(null) %}<p class="field__error" id="error-gender"><span class="visually-hidden">Error: </span>{{ errors.gender }}</p>{% endif %}
+      <select class="input" id="field-gender" name="gender" required aria-required="true"{% if errors.gender|default(null) %} aria-invalid="true" aria-describedby="error-gender"{% endif %}>
+        <option value="">Choose</option>
+        <option value="female"{% if old.gender|default('') == 'female' %} selected{% endif %}>Female</option>
+        <option value="male"{% if old.gender|default('') == 'male' %} selected{% endif %}>Male</option>
+        <option value="other"{% if old.gender|default('') == 'other' %} selected{% endif %}>Other</option>
+      </select>
+    </div>
+    {{ f.field('school', 'School (optional)', old.school|default(''), errors.school|default(null), 'text', null, false, 'off') }}
+    {{ f.file('photo', 'Photo (optional)', errors.photo|default(null), 'PNG or JPG, up to 2 MB. It is shown as a small thumbnail.' ~ (similar is defined and similar ? ' Choose the photo again to create the child anyway.' : '')) }}
+    <button class="button" type="submit">{% if similar is defined and similar %}Create anyway{% else %}Add child{% endif %}</button>
+    <a class="button button--secondary" href="/family/children">Cancel</a>
+  </form>
+{% endblock %}
